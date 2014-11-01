@@ -1,0 +1,184 @@
+<div class="monster-stat-block">
+    <h1 class="name">
+        {{name}}
+        <div class="basics">
+            <span class="size">{{size}}</span> {{type}}, {{alignment}}
+        </div>
+    </h1>
+    <hr/>
+    <div class="ac">
+        <span class="term">Armor Class</span> {{ac}}
+        {{#has-ac-details?}}
+            <span class="ac-details">{{ac-details}}</span>
+        {{/has-ac-details?}}
+    </div>
+    <div class="hp">
+        <span class="term">Hit Points</span>
+        {{#average-die-roll}}{{hp}}{{/average-die-roll}} ({{hp}})
+    </div>
+    <div class="movement">
+        <span class="term">Speed</span>
+        <ul class="inline plain">
+            {{{speeds}}}
+        </ul>
+    </div>
+    <hr/>
+    {{#abilities}}
+        <div class="abilities">
+            <div class="ability">
+                <div>str</div>
+                {{str}} ({{#mod}}{{str}}{{/mod}})
+            </div>
+            <div class="ability">
+                <div>dex</div>
+                {{dex}} ({{#mod}}{{dex}}{{/mod}})
+            </div>
+            <div class="ability">
+                <div>con</div>
+                {{con}} ({{#mod}}{{con}}{{/mod}})
+            </div>
+            <div class="ability">
+                <div>int</div>
+                {{int}} ({{#mod}}{{int}}{{/mod}})
+            </div>
+            <div class="ability">
+                <div>wis</div>
+                {{wis}} ({{#mod}}{{wis}}{{/mod}})
+            </div>
+            <div class="ability">
+                <div>cha</div>
+                {{cha}} ({{#mod}}{{cha}}{{/mod}})
+            </div>
+        </div>
+    {{/abilities}}
+    <hr/>
+    {{#has-saving-throws?}}
+        <div class="saving-throws">
+            <span class="term">Saving Throws</span>
+            <ul class="inline">
+                {{#saving-throws}}<li><span class="ability">{{ability}}</span> {{#format}}{{modifier}}{{/format}}</li>{{/saving-throws}}
+            </ul>
+        </div>
+    {{/has-saving-throws?}}
+    {{#has-skills?}}
+        <div class="skills">
+            <span class="term">Skills</span>
+            <ul class="inline">
+                {{#skills}}
+                    <li>
+                        <span class="skill">{{name}}</span>
+                        {{#format}}{{modifier}}{{/format}}</li>
+                {{/skills}}
+            </ul>
+        </div>
+    {{/has-skills?}}
+    {{#has-condition-immunities?}}
+        <div class="condition-immunities">
+            <span class="term">Condition Immunities</span>
+            <ul class="inline sentence">
+                {{#condition-immunities}}<li>{{.}}</li>{{/condition-immunities}}
+            </ul>
+        </div>
+    {{/has-condition-immunities?}}
+    {{#has-damage-vulnerabilities?}}
+        <div class="damage-vulnerabilities">
+            <span class="term">Damage Vulnerabilities</span>
+            <ul class="inline sentence">
+                {{#damage-vulnerabilities}}<li>{{.}}</li>{{/damage-vulnerabilities}}
+            </ul>
+        </div>
+    {{/has-damage-vulnerabilities?}}
+    {{#has-damage-resistances?}}
+        <div class="damage-resistances">
+            <span class="term">Damage Resistances</span>
+            <ul class="inline sentence">
+                {{{damage-resistances-list}}}
+            </ul>
+        </div>
+    {{/has-damage-resistances?}}
+    {{#has-damage-immunities?}}
+        <div class="damage-immunities">
+            <span class="term">Damage Immunities</span>
+            <ul class="inline sentence">
+                {{#damage-immunities}}<li>{{.}}</li>{{/damage-immunities}}
+            </ul>
+        </div>
+    {{/has-damage-immunities?}}
+    {{#has-condition-immunities?}}
+        <div class="condition-immunities">
+            <span class="term">Condition Immunities</span>
+            <ul class="inline sentence">
+                {{#condition-immunities}}<li>{{.}}</li>{{/condition-immunities}}
+            </ul>
+        </div>
+    {{/has-condition-resistances?}}
+    {{#has-senses?}}
+        <div class="senses">
+            Senses
+            <ul class="inline">
+                {{#senses}}
+                    <li>{{name}}</li>
+                {{/senses}}
+            </ul>
+        </div>
+    {{/has-senses?}}
+    <div class="languages">
+        <span class="term">Languages</span>
+        <ul class="inline">
+            {{#languages}}
+                <li>{{.}}</li>
+            {{/languages}}
+            {{^languages}}
+                <li>&ndash;</li>
+            {{/languages}}
+        </ul>
+    </div>
+    <div class="challenge">
+        <span class="term">Challenge</span> {{challenge}} ({{xp}} XP)
+    </div>
+    <hr/>
+    {{#features}}
+        <p class="feature">
+            <span class="term">{{name}}</span>
+            {{#markdown}}{{description}}{{/markdown}}
+        </p>
+    {{/features}}
+    {{#has-actions?}}
+        <h2>Actions</h2>
+        {{#actions}}
+            <p class="action">
+                <span class="name">{{name}}</span>
+                {{#markdown}}{{text}}{{/markdown}}
+                {{^text}}
+                    <span class="description">{{desc}}:</span>
+                    {{#format}}{{to-hit}}{{/format}} to hit,
+                    {{#reach-or-range}}{{reach}}/{{#range}}{{.}}/{{/range}}{{/reach-or-range}},
+                    {{target}}.
+                    <span class="hit">Hit:</span>
+                    {{#average-die-roll}}{{hit}}{{/average-die-roll}} ({{hit}})
+                    {{damage-type}}
+                    {{#damage-details}}{{details}}{{/damage-details}}
+                {{/text}}
+            </p>
+        {{/actions}}
+    {{/has-actions?}}
+    {{#has-reactions?}}
+        <h2>Reactions</h2>
+        {{#reactions}}
+            <p class="action">
+                <span class="name">{{name}}</span>
+                {{#markdown}}{{text}}{{/markdown}}
+            </p>
+        {{/reactions}}
+    {{/has-reactions?}}
+    {{#has-legendary-actions?}}
+        <h2>Legendary Actions</h2>
+        {{#legendary-actions}}
+            <p class="action">
+                <span class="name">{{name}}</span>
+                {{#markdown}}{{text}}{{/markdown}}
+            </p>
+            {{/reactions}}
+    {{/has-reactions?}}
+    {{#markdown-with-p}}{{description}}{{/markdown-with-p}}
+</div>

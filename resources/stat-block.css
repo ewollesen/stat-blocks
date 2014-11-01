@@ -1,0 +1,142 @@
+* {
+  font-family: serif;
+  font-size: 1em;
+}
+
+.monster-stat-block h1 {
+  font-size: 2em;
+  font-variant: small-caps;
+  text-transform: capitalize;
+}
+
+.monster-stat-block h1 .basics {
+  font-size: 0.5em;
+  font-style: italic;
+  font-variant: normal;
+  text-transform: none;
+}
+
+.monster-stat-block h1 .basics .size {
+  text-transform: capitalize;
+}
+
+.monster-stat-block .term {
+  font-weight: bold;
+  text-transform: capitalize;
+}
+
+.monster-stat-block ul.inline {
+  display: inline;
+  padding-left: 0;
+}
+
+.monster-stat-block ul.inline li {
+  display: inline;
+}
+
+.monster-stat-block ul.inline li:before {
+  content: ", ";
+}
+
+.monster-stat-block ul.inline li:first-child:before {
+  content: "";
+}
+
+.monster-stat-block ul.inline.continuation li:first-child:before {
+  content: ", ";
+}
+
+.monster-stat-block ul.inline.sentence li:last-child:before {
+  content: ", and ";
+}
+
+.monster-stat-block ul.inline.sentence li:nth-child(2):last-child:before {
+  content: " and ";
+}
+
+.monster-stat-block ul.inline.sentence li:first-child:last-child:before {
+  content: "";
+}
+
+.monster-stat-block ul.inline.plain li:before,
+.monster-stat-block ul.inline.plain li:after
+{
+  content: "" !important;
+}
+
+.monster-stat-block ul.top-list > li:after {
+  content: "; ";
+}
+
+.monster-stat-block ul.top-list > li:last-child:after,
+.monster-stat-block ul.top-list > li:before {
+  content: "" !important;
+}
+
+.monster-stat-block .abilities .ability {
+  float: left;
+  text-align: center;
+}
+
+.monster-stat-block .ability > div {
+  font-weight: bold;
+  text-transform: uppercase;
+}  
+
+.monster-stat-block h2 {
+  font-family: sans-serif;
+  font-size: 1.66em;
+}
+
+.monster-stat-block .action .name {
+  font-style: italic;
+  font-weight: bold;
+  text-transform: capitalize;
+}
+
+.monster-stat-block .action .name:after {
+  content: ".";
+}
+
+.monster-stat-block .action .description,
+.monster-stat-block .action .hit {
+  font-style: italic;
+}
+
+.monster-stat-block .feature .term {
+  font-style: italic;
+}
+
+.monster-stat-block .feature .term:after {
+  content: ".";
+}
+
+.monster-stat-block .feature + ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.monster-stat-block .ac .ac-details {
+  quotes: '(' ')';
+}
+
+.monster-stat-block .ac .ac-details:before {
+  content: open-quote;
+}
+
+.monster-stat-block .ac .ac-details:after {
+  content: close-quote;
+}
+
+.monster-stat-block .skills .skill,
+.monster-stat-block .saving-throws .ability {
+  text-transform: capitalize;
+}
+
+.monster-stat-block h2 {
+  border-bottom: 1px solid black;
+}
+
+.monster-stat-block hr {
+  clear: left;
+}

@@ -1,0 +1,102 @@
+{
+ :name "sample monster"
+ :size "medium"
+ :type "humanoid (any race)"
+ :alignment "any alignment"
+ :ac 12
+ :ac-details "armor details"
+ :hp "2d6 + 2"
+ :movements [
+                 {
+                  :name "base"
+                  :details ""
+                  :value 20
+                  }
+                 {
+                  :name "burrow"
+                  :details ""
+                  :value 10
+                  }
+                 {
+                  :name "fly"
+                  :details "details of fly"
+                  :value 60
+                  }
+             ]
+ :speed 30
+ :speed-details "speed details"
+ :abilities {
+             :str 18
+             :dex 18
+             :con 18
+             :int 18
+             :wis 18
+             :cha 18
+             }
+ :saving-throws [
+                 {:ability "str" :modifier 6}
+                 {:ability "cha" :modifier 6}
+                 ]
+ :skills [
+          {
+           :name "deception"
+           :modifier 6
+           }
+          ]
+ :condition-immunities ["petrified"]
+ :damage-vulnerabilities ["cold" "radiant"]
+ :damage-resistances [
+                      "fire"
+                      {:details "from non-magical weapons"
+                       :types ["slashing" "piercing" "bludgeoning"]}
+                      ]
+ :damage-immunities ["acid" "poison" "necrotic"]
+ :senses ["passive Perception 14"]
+ :languages ["any one language (usually Common)"]
+ :challenge 1/8
+ :xp 25
+ :actions [
+           {
+            :name "scimitar"
+            :desc "Melee Weapon Attack"
+            :text ""
+            :to-hit 3
+            :reach 5
+            :target "one target"
+            :hit "1d6 + 1"
+            :damage-type "slashing"
+            }
+           {
+            :name "light crossbow"
+            :desc "Ranged Weapon Attack"
+            :text ""
+            :to-hit 3
+            :reach 5
+            :range [80 320]
+            :target "one target"
+            :hit "1d8 + 1"
+            :damage-type "piercing"
+            }
+           ]
+ :legendary-actions [
+                     {
+                      :name "Rawr"
+                      :text "This is legendary!"
+                      }
+                     ]
+ :reactions [
+             {
+              :name "reactive ability #1"
+              :text "This is an example reaction."
+              }
+             ]
+ :features [
+            {
+             :name "Keen smell"
+             :description "This is where I talk about keen smell."
+             }
+            ]
+ :description "I've not decided if description text should be included.
+
+So for now, here are a pair of paragraphs."
+ }
