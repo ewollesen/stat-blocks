@@ -72,11 +72,8 @@
         <div class="skills">
             <span class="term">Skills</span>
             <ul class="inline">
-                {{#skills}}
-                    <li>
-                        <span class="skill">{{name}}</span>
-                        {{#format}}{{modifier}}{{/format}}</li>
-                {{/skills}}
+                {{#skills}}<li><span class="skill">{{name}}</span>
+                    {{#format}}{{modifier}}{{/format}}</li>{{/skills}}
             </ul>
         </div>
     {{/has-skills?}}
@@ -126,18 +123,14 @@
                 Senses
             </span>
             <ul class="inline">
-                {{#senses}}
-                    <li>{{.}}</li>
-                {{/senses}}
+                {{#senses}}<li>{{.}}</li>{{/senses}}
             </ul>
         </div>
     {{/has-senses?}}
     <div class="languages">
         <span class="term">Languages</span>
         <ul class="inline">
-            {{#languages}}
-                <li>{{.}}</li>
-            {{/languages}}
+            {{#languages}}<li>{{.}}</li>{{/languages}}
             {{^languages}}
                 <li>&ndash;</li>
             {{/languages}}

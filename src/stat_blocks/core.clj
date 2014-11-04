@@ -3,22 +3,13 @@
         [markdown.core :only [md-to-html-string]])
   (:require [clojure.edn :as edn]
             [clojure.java.io :as io]
-            [clojure.string :as str])
+            [clojure.string :as str]
+
+            [stat-blocks.selmer :as latex]
+            [stat-blocks.util :as util])
   (:gen-class))
 
 
-(def die-roll-re #"(\d+)?d(\d+)(?:\s*(\+|-)\s*(\d+))?")
-(def num-format (partial format "%+d"))
-(def range-re #"([0-9]+)/([0-9]+)")
-(def reach-or-range-re #"([0-9]+)/([0-9]+/[0-9]+/)?")
-
-
-(defn loader [name]
-  (with-open [r (-> (str name ".edn")
-                    io/resource
-                    io/reader
-                    java.io.PushbackReader.)]
-    (edn/read r)))
 
 (defn load-partial [name]
   {(keyword name) (-> (str name ".html.mustache")
@@ -29,20 +20,28 @@
 (defn has-check [context]
   (fn [key] (not (empty? (key context)))))
 
+(defn average-die-roll-core [text]
+  (println "average-die-roll" text)
+  (if (< 0 (count text))
+    (do (println "go!")
+        (let [[_ rolls sides sign mod] (re-find util/die-roll-re text)
+              op (if (= "-" sign) - +)
+              avg (+ (quot (Integer. (or sides 0)) 2) 1/2)
+              _ (println "text" text "rolls" rolls "sides" sides)]
+          (if sides
+            (quot (op (* (Integer. (or rolls 1)) avg) (Integer. (or mod 0))) 1)
+            "")))
+    ""))
+
 (defn average-die-roll [template]
   (fn [render-fn]
-    (let [roll (render-fn template)
-          [_ rolls sides sign mod] (re-find die-roll-re roll)
-          op (if (= "-" sign) - +)
-          avg (+ (quot (Integer. (or sides 0)) 2) 1/2)]
-      (if sides
-        (quot (op (* (Integer. (or rolls 1)) avg) (Integer. (or mod 0))) 1)
-        ""))))
+    (let [roll (render-fn template)]
+      (average-die-roll roll))))
 
 (defn format-reach-or-range [[key val]]
   (cond
    (= key :reach) (str "reach " val " ft.")
-   (= key :range) (if-let [[_ short long] (re-find range-re (or val ""))]
+   (= key :range) (if-let [[_ short long] (re-find util/range-re (or val ""))]
                     (str "range " short "/" long " ft.")
                     nil)))
 
@@ -65,12 +64,15 @@
     (let [details (render-fn template)]
       (str (str/join ", " (filter #(< 0 (count %)) ["damage" details])) "."))))
 
+(defn reach-or-range-core [text]
+  (let [[_ reach range] (re-find util/reach-or-range-re text)
+        args {:reach reach :range range}]
+    (str/join " or " (filter identity (map format-reach-or-range args)))))
+
 (defn reach-or-range [template]
   (fn [render-fn]
-    (let [text (render-fn template)
-          [_ reach range] (re-find reach-or-range-re text)
-          args {:reach reach :range range}]
-      (str/join " or " (filter identity (map format-reach-or-range args))))))
+    (let [text (render-fn template)]
+      (reach-or-range-core text))))
 
 (defn mod-format [template]
   (fn [render-fn]
@@ -78,7 +80,7 @@
         render-fn
         str/trim
         Integer.
-        num-format)))
+        util/format-mod)))
 
 (defn content-tag
   ([name value]
@@ -131,7 +133,7 @@
                   :average-die-roll average-die-roll}))
 
 (defn calc-ability-modifier [score]
-  (num-format (quot (- score 10) 2)))
+  (util/format-mod (quot (- score 10) 2)))
 
 (defn mod [template]
   (fn [render-fn]
@@ -161,8 +163,28 @@
                     :has-speed-details? (has? :speed-details)
                     })))
 
+(defn process-reach-or-range [action]
+  (str/join "/") (into [(:reach action)]
+                       (map #(str/join "/" (str %)) (or (:range action) []))))
+
+(defn merge-reach-or-range [context]
+  (merge context {:actions (map process-reach-or-range (:actions context))}))
+
 (def partials (merge {}
                      (load-partial "stat-block")))
+
+(defn go-selmer
+  ([] (go-selmer ["sample"]))
+  ([names]
+     (let [rt (.. Runtime (getRuntime))]
+       (doseq [name names]
+         (.. Runtime (getRuntime) (exec (str "touch resources/template.tex.selmer")))
+         (latex/render name))
+       (doseq [name names]
+         (.. Runtime (getRuntime) (exec (str "pdflatex " name  ".tex")))
+         ;; (.. Runtime (getRuntime) (exec (str "zathura " name  ".pdf")))
+         ))))
+
 (defn -main
   "I don't do a whole lot ... yet."
   [& args]
@@ -170,8 +192,18 @@
     (spit (str name ".html")
           (print-str (render-resource "page.html.mustache"
                                       (-> name
-                                          loader
+                                          util/loader
                                           merge-existence-checks
                                           merge-ability-modifiers
                                           merge-utils)
-                                      partials)))))
+                                      partials)))
+
+    ;; (spit (str name ".tex")
+    ;;       (print-str (render-resource "template.tex.mustache"
+    ;;                                   (-> name
+    ;;                                       util/loader
+    ;;                                       merge-existence-checks
+    ;;                                       merge-ability-modifiers
+    ;;                                       merge-utils))))
+
+    (latex/render name)))

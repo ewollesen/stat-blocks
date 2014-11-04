@@ -5,6 +5,7 @@
             :url "https://www.gnu.org/licenses/gpl.txt"}
   :dependencies [[org.clojure/clojure "1.6.0"]
                  [de.ubercode.clostache/clostache "1.4.0"]
+                 [selmer "0.7.2"]
                  [markdown-clj "0.9.55"]]
   :main ^:skip-aot stat-blocks.core
   :target-path "target/%s"

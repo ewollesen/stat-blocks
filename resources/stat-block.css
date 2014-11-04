@@ -1,23 +1,19 @@
+html {
+  margin: 0;
+  padding: 0;
+}
+
 body.letter {
   font-size: 0.625em;
   font-family: sans-serif;
   line-height: 1.375em;
-  margin: auto;
-  width: 8.5in;
+  margin: 0.25in;
+  padding: 0.25in;
 }
-
-.monster-stat-blocks {
-  margin: auto;
-  width: 5.75in;
-};
 
 .monster-stat-block {
   font-family: sans-serif;
   line-height: 1.2em;
-}
-
-.monster-stat-block {
-  float: left;
   width: 2.875in;
 }
 

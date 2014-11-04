@@ -1,0 +1,109 @@
+%% -*- latex -*-
+%% <% safe %>
+\documentclass[letterpaper, 10pt, twocolumn]{extarticle}
+\usepackage[usenames, dvipsnames, table]{xcolor}
+\usepackage{tikz, array, booktabs, tabularx, titlesec}
+\usepackage[framemethod=tikz]{mdframed}
+\usepackage[top=2cm, bottom=2cm, left=2cm, right=2cm]{geometry}
+
+\mdfdefinestyle{monster}{hidealllines=true, innertopmargin=2pt, innerbottommargin=2pt, innerleftmargin=3pt, innerrightmargin=3pt}
+\renewcommand\familydefault{\sfdefault}
+
+%%% COLORS
+\definecolor{wheat}{rgb}{0.96, 0.87, 0.7}
+\definecolor{camel}{rgb}{0.76, 0.6, 0.42}
+\definecolor{graphite}{rgb}{0.2, 0.2, 0.2}
+\colorlet{monster}{red!60!black}
+\colorlet{tablebg}{wheat!40!white}
+%% \colorlet{tableborder}{camel}
+\colorlet{tableborder}{graphite}
+
+%%% STAT BLOCK COMMANDS
+\newcommand{\blocksep}{\multicolumn{6}{l}{\vspace{0pt}\begin{tikzpicture} \fill[graphite] (0,0) -- (0.95\linewidth,0.07) -- (0,0.14) -- cycle; \end{tikzpicture}\vspace{0pt}}}
+\newcommand{\sectionrule}{\multicolumn{6}{l}{\begin{tikzpicture} \filldraw[graphite] (0,0) -- (0.95\linewidth,0); \end{tikzpicture}}}
+\newcommand{\name}[1]{\multicolumn{6}{p{0.9\linewidth}}{\LARGE{{\fontfamily{cmr}\fontshape{sc}\selectfont #1}}}}
+\newcommand{\type}[1]{\multicolumn{6}{p{0.9\linewidth}}{\small{\em #1}}}
+\newcommand{\stat}[2]{\multicolumn{6}{p{0.9\linewidth}}{{\textbf{#1} #2}}}
+\newcommand{\ab}[2]{\multicolumn{6}{p{0.9\linewidth}}{\textbf{#1.} #2}\vspace{5pt}}
+\newcommand{\actions}{\multicolumn{6}{p{0.9\linewidth}}{\fontfamily{cmss}\selectfont \Large{A}\normalsize{CTIONS}} \\ [-4.5ex]}
+\newcommand{\reactions}{\multicolumn{6}{p{0.9\linewidth}}{\fontfamily{cmss}\selectfont \Large{R}\normalsize{EACTIONS}} \\ [-4.5ex]}
+\newcommand{\legendaryactions}{\multicolumn{6}{p{0.9\linewidth}}{\fontfamily{cmss}\selectfont \Large{L}\normalsize{EGENDARY ACTIONS}} \\ [-4.5ex]}
+\newcommand{\blurb}[1]{\multicolumn{6}{p{0.9\linewidth}}{#1}\vspace{5pt}}
+\newcommand{\action}[2]{\multicolumn{6}{p{0.9\linewidth}}{\textbf{\textit{#1.}} #2}\vspace{5pt}}
+\newcommand{\atk}[4]{\multicolumn{6}{p{0.9\linewidth}}{\textbf{\textit{#1.}} \emph{#2:} #3. \emph{Hit:} #4.}\vspace{5pt}}
+\newcommand{\attribute}[2]{\parbox{0.14\columnwidth}{\centering\small{\textbf{#1}\\#2}}}
+
+%%% STAT BLOCK ENVIRONMENT
+\newenvironment{monster}[1]{\table[!#1]\center\mdframed[style=monster]\tabularx{\columnwidth}{X@{}X@{}X@{}X@{}X@{}X}\arrayrulecolor{tableborder}}{\endtabularx\endmdframed\endcenter\endtable}
+
+%%% SECTION FORMAT
+\titleformat{\section}{\sc}{}{0pt}{\Huge}
+\titleformat{\subsection}[runin]{\bf}{}{0pt}{}[.]
+\titlespacing{\subsection}{0pt}{*1}{*1}
+
+\begin{document}
+
+\title{DnD 5e Monster Manual Template}
+
+\begin{monster}{b}
+  \specialrule{4pt}{-3pt}{6pt}
+  \name{<{ name|title }>} \\
+  \type{<{ size|title }> <{ type }>, <{ alignment }>} \\
+  \\ [-28pt] \\ \sectionrule \\
+  %%\blocksep \\
+  \stat{Armor Class}{<{ ac }><% if ac-details %> (<{ ac-details }>)<% endif %>} \\
+  \stat{Hit Points}{<{ hp|mean-roll }> (<{ hp }>)} \\
+  \stat{Speed}{<{ movements|speed }>} \\
+  \\ [-28pt] \\ \sectionrule \\ [-8pt] \\
+  %% \blocksep \\
+  \attribute{STR}{<{ abilities.str }>~(<{ abilities.str|ability-mod }>)} &
+  \attribute{DEX}{<{ abilities.dex }>~(<{ abilities.dex|ability-mod }>)} &
+  \attribute{CON}{<{ abilities.con }>~(<{ abilities.con|ability-mod }>)} &
+  \attribute{INT}{<{ abilities.int }>~(<{ abilities.int|ability-mod }>)} &
+  \attribute{WIS}{<{ abilities.wis }>~(<{ abilities.wis|ability-mod }>)} &
+  \attribute{CHA}{<{ abilities.cha }>~(<{ abilities.cha|ability-mod }>)} \\
+  \\ [-24pt] \\ \sectionrule \\ [-10pt] \\
+  %% \blocksep \\
+  <% if not saving-throws|blank? %>
+  \stat{Saving Throws}{<{ saving-throws|saves-list }>} \\
+  <% endif %>
+  <% if not skills|blank? %>
+  \stat{Skills}{<{ skills|skills-list }>} \\
+  <% endif %>
+  <% if not condition-immunities|blank? %>
+  \stat{Condition Immunities}{<{ condition-immunities|join:", " }>} \\
+  <% endif %>
+  <% if not damage-vulnerabilities|blank? %>
+  \stat{Damage Vulnerabilities}{<{ damage-vulnerabilities|join:", " }>} \\
+  <% endif %>
+  <% if not damage-immunities|blank? %>
+  \stat{Damage Immunities}{<{ damage-immunities|join:", " }>} \\
+  <% endif %>
+  <% if not damage-resistances|blank? %>
+  \stat{Damage Resistances}{<{ damage-resistances|damage-resistances-list }>} \\
+  <% endif %>
+  \stat{Senses}{<{ senses|join:", " }>} \\
+  \stat{Languages}{<{ languages|list-or:"--" }>} \\
+  \stat{Challenge}{<{ challenge }> (<{ xp }>)} \\
+  \\ [-28pt] \\ \sectionrule \\ [-8pt] \\
+  %% \blocksep \\
+  <% for feature in features %>\ab{<{ feature.name|title }>}{<{ feature.text|markdown }>} \\
+  <% endfor %>
+  \actions \\ \sectionrule \\
+  <% for action in actions %><% if action.text|blank? %>\atk{<{ action.name|title }>}{<{ action.attack-type|title }>}{<{ action.to-hit|mod }> to hit, <{ action.reach-and-range }>, <{ action.target }>}{<{ action.hit|mean-roll }>~(<{ action.hit }>) <{ action.damage-type }> damage}<% else %>\action{<{ action.name|title }>}{<{ action.text }>}<% endif %> \\
+  <% endfor %>
+  \reactions \\ \sectionrule \\
+  <% for reaction in reactions %>\action{<{ reaction.name|title }>}{<{ reaction.text }>} \\
+  <% endfor %>
+  <% if not legendary-actions|blank? %>
+  \legendaryactions \\ \sectionrule \\
+  \blurb{<{ legendary-actions.intro }>} \\
+  <% for action in legendary-actions.actions %>\action{<{ action.name|title }>}{<{ action.text }>} \\
+  <% endfor %>
+  <% endif %>
+  \specialrule{4pt}{4pt}{-3pt}
+\end{monster}
+
+
+\end{document}
+%% <% endsafe %>

@@ -51,7 +51,6 @@
  :actions [
            {
             :name "scimitar"
-            :text ""
             :attack-type "Melee Weapon Attack"
             :to-hit 3
             :reach 5
@@ -61,7 +60,6 @@
             }
            {
             :name "light crossbow"
-            :text ""
             :attack-type "Ranged Weapon Attack"
             :to-hit 3
             :reach 5
@@ -71,10 +69,11 @@
             :damage-type "piercing"
             }
            ]
- :legendary-actions [{:name "Rawr" :text "This is legendary!"}]
+ :legendary-actions {:intro "This is a blurb."
+                     :actions [{:name "Rawr" :text "This is legendary!"}]}
  :reactions [
              {
-              :name "reactive ability #1"
+              :name "reactive ability \\#1"
               :text "This is an example reaction."
               }
              ]
