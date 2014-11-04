@@ -24,32 +24,40 @@
     </div>
     <hr/>
     {{#abilities}}
-        <div class="abilities">
-            <div class="ability">
-                <div>str</div>
-                {{str}} ({{#mod}}{{str}}{{/mod}})
-            </div>
-            <div class="ability">
-                <div>dex</div>
-                {{dex}} ({{#mod}}{{dex}}{{/mod}})
-            </div>
-            <div class="ability">
-                <div>con</div>
-                {{con}} ({{#mod}}{{con}}{{/mod}})
-            </div>
-            <div class="ability">
-                <div>int</div>
-                {{int}} ({{#mod}}{{int}}{{/mod}})
-            </div>
-            <div class="ability">
-                <div>wis</div>
-                {{wis}} ({{#mod}}{{wis}}{{/mod}})
-            </div>
-            <div class="ability">
-                <div>cha</div>
-                {{cha}} ({{#mod}}{{cha}}{{/mod}})
-            </div>
-        </div>
+        <table class="abilities">
+            <thead>
+                <tr>
+                    <th>str</th>
+                    <th>dex</th>
+                    <th>con</th>
+                    <th>int</th>
+                    <th>wis</th>
+                    <th>cha</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="ability">
+                        {{str}} ({{#mod}}{{str}}{{/mod}})
+                    </td>
+                    <td class="ability">
+                        {{dex}} ({{#mod}}{{dex}}{{/mod}})
+                    </td>
+                    <td class="ability">
+                        {{con}} ({{#mod}}{{con}}{{/mod}})
+                    </td>
+                    <td class="ability">
+                        {{int}} ({{#mod}}{{int}}{{/mod}})
+                    </td>
+                    <td class="ability">
+                        {{wis}} ({{#mod}}{{wis}}{{/mod}})
+                    </td>
+                    <td class="ability">
+                        {{cha}} ({{#mod}}{{cha}}{{/mod}})
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     {{/abilities}}
     <hr/>
     {{#has-saving-throws?}}
@@ -114,10 +122,12 @@
     {{/has-condition-resistances?}}
     {{#has-senses?}}
         <div class="senses">
-            Senses
+            <span class="term">
+                Senses
+            </span>
             <ul class="inline">
                 {{#senses}}
-                    <li>{{name}}</li>
+                    <li>{{.}}</li>
                 {{/senses}}
             </ul>
         </div>
@@ -140,7 +150,7 @@
     {{#features}}
         <p class="feature">
             <span class="term">{{name}}</span>
-            {{#markdown}}{{description}}{{/markdown}}
+            {{#markdown}}{{text}}{{/markdown}}
         </p>
     {{/features}}
     {{#has-actions?}}
@@ -150,7 +160,7 @@
                 <span class="name">{{name}}</span>
                 {{#markdown}}{{text}}{{/markdown}}
                 {{^text}}
-                    <span class="description">{{desc}}:</span>
+                    <span class="attack-type">{{attack-type}}:</span>
                     {{#format}}{{to-hit}}{{/format}} to hit,
                     {{#reach-or-range}}{{reach}}/{{#range}}{{.}}/{{/range}}{{/reach-or-range}},
                     {{target}}.
@@ -180,5 +190,4 @@
             </p>
             {{/reactions}}
     {{/has-reactions?}}
-    {{#markdown-with-p}}{{description}}{{/markdown-with-p}}
 </div>

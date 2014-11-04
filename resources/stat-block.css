@@ -1,18 +1,41 @@
-* {
-  font-family: serif;
-  font-size: 1em;
+body.letter {
+  font-size: 0.625em;
+  font-family: sans-serif;
+  line-height: 1.375em;
+  margin: auto;
+  width: 8.5in;
+}
+
+.monster-stat-blocks {
+  margin: auto;
+  width: 5.75in;
+};
+
+.monster-stat-block {
+  font-family: sans-serif;
+  line-height: 1.2em;
+}
+
+.monster-stat-block {
+  float: left;
+  width: 2.875in;
 }
 
 .monster-stat-block h1 {
-  font-size: 2em;
+  font-family: serif;
+  font-size: 1.666em;
   font-variant: small-caps;
+  margin-top: 0.333em;
+  margin-bottom: 0.333em;
   text-transform: capitalize;
 }
 
 .monster-stat-block h1 .basics {
-  font-size: 0.5em;
+  font-family: sans-serif;
+  font-size: 0.6em;
   font-style: italic;
   font-variant: normal;
+  font-weight: normal;
   text-transform: none;
 }
 
@@ -73,19 +96,28 @@
   content: "" !important;
 }
 
+.monster-stat-block .abilities {
+  margin: 0.5em 0;
+  width: 100%;
+}
+
 .monster-stat-block .abilities .ability {
-  float: left;
   text-align: center;
 }
 
-.monster-stat-block .ability > div {
+.monster-stat-block .abilities th {
   font-weight: bold;
   text-transform: uppercase;
 }  
 
 .monster-stat-block h2 {
+  font-size: 1.2em;
   font-family: sans-serif;
-  font-size: 1.66em;
+  margin-bottom: 0.333em;
+}
+
+.monster-stat-block h2 + p.action {
+  margin-top: 0px;
 }
 
 .monster-stat-block .action .name {
@@ -98,11 +130,8 @@
   content: ".";
 }
 
-.monster-stat-block .action .description,
-.monster-stat-block .action .hit {
-  font-style: italic;
-}
-
+.monster-stat-block .action .attack-type,
+.monster-stat-block .action .hit,
 .monster-stat-block .feature .term {
   font-style: italic;
 }
@@ -138,5 +167,10 @@
 }
 
 .monster-stat-block hr {
+  border: none;
+  border-bottom: 1px solid black;
+}
+
+.monster-stat-block .clear {
   clear: left;
 }

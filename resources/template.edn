@@ -1,0 +1,77 @@
+{
+ :name ""
+ :size "" ;; e.g. medium
+ :type "" ;; e.g. humanoid (any race)
+ :alignment "" ;; e.g. chaotic neutral
+ :ac 0 ;;
+ :ac-details "" ;; e.g. leather armor
+ :hp "" ;; e.g. 2d6 + 2
+ :movements [
+             {
+              :name "base" ;; base is required
+              :details ""
+              :value 30
+              }
+             ;; {
+             ;;  :name "fly"
+             ;;  :details "(hover)"
+             ;;  :value 60
+             ;;  }
+             ]
+ :abilities {
+             :str 0
+             :dex 0
+             :con 0
+             :int 0
+             :wis 0
+             :cha 0
+             }
+ :saving-throws [
+                 ;; {:ability "str" :modifier 1}
+                 ]
+ :skills [
+          ;;{:name "deception" :modifier 6}
+          ]
+ :condition-immunities []
+ :damage-vulnerabilities []
+ ;; damage-resistances can have multiple lists, as shown below
+ :damage-resistances [
+                      ;; "fire"
+                      ;; {:details "from non-magical weapons"
+                      ;;  :types ["slashing" "piercing" "bludgeoning"]}
+                      ]
+ :damage-immunities []
+ :senses ["passive Perception 0"]
+ :languages []
+ :challenge 0
+ :xp 0
+ :actions [
+           ;; Typically, if :text is filled out, then desc, to-hit, reach, etc
+           ;; are not.
+           ;; {
+           ;;  :name "scimitar"
+           ;;  :text ""
+           ;;  :attack-type "Melee Weapon Attack"
+           ;;  :to-hit 3
+           ;;  :reach 5
+           ;;  :target "one target"
+           ;;  :hit "1d6 + 1"
+           ;;  :damage-type "slashing"
+           ;;  }
+           ]
+ :legendary-actions [
+                     ;; {:name "Rawr" :text "This is legendary!"}
+                     ]
+ :reactions [
+             ;; {
+             ;;  :name "reactive ability #1"
+             ;;  :text "This is an example reaction."
+             ;;  }
+             ]
+ :features [
+            ;; {
+            ;;  :name "Keen smell"
+            ;;  :text "This is where I talk about keen smell."
+            ;;  }
+            ]
+ }

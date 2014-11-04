@@ -34,8 +34,10 @@
     (let [roll (render-fn template)
           [_ rolls sides sign mod] (re-find die-roll-re roll)
           op (if (= "-" sign) - +)
-          avg (+ (quot (Integer. sides) 2) 1/2)]
-      (quot (op (* (Integer. (or rolls 1)) avg) (Integer. (or mod 0))) 1))))
+          avg (+ (quot (Integer. (or sides 0)) 2) 1/2)]
+      (if sides
+        (quot (op (* (Integer. (or rolls 1)) avg) (Integer. (or mod 0))) 1)
+        ""))))
 
 (defn format-reach-or-range [[key val]]
   (cond
@@ -154,12 +156,13 @@
                     :has-legendary-actions? (has? :legendary-actions)
                     :has-reactions? (has? :reactions)
                     :has-saving-throws? (has? :saving-throws)
+                    :has-senses? (has? :senses)
                     :has-skills? (has? :skills)
                     :has-speed-details? (has? :speed-details)
                     })))
 
 (def partials (merge {}
-                     (load-partial "stat_block")))
+                     (load-partial "stat-block")))
 (defn -main
   "I don't do a whole lot ... yet."
   [& args]
