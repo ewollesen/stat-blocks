@@ -10,10 +10,9 @@
             [stat-blocks.util :as util]))
 
 
-(def options {:tag-open \< :tag-close \>})
+(def selmer-options {:tag-open \< :tag-close \>})
 (def template "monster.tex.selmer")
 ;; (def template-grey "template-grey.tex.selmer")
-
 
 (defn format-mod [text]
   (-> text
@@ -25,11 +24,6 @@
       util/str->int
       util/calc-ability-mod
       util/format-mod))
-
-(defn load-template []
-  (-> template
-      io/resource
-      str))
 
 (defn render-reach-and-range [action]
   (let [reach (when (contains? action :reach)
@@ -95,10 +89,16 @@
 (defn kramdown [text]
   (str/trim (:out (sh "kramdown" "-o" "latex" "-i" "kramdown" :in text))))
 
+(defn markdown-default [text default]
+  (if (blank? text)
+    default
+    (kramdown text)))
+
 (defn add-filters []
   (sf/add-filter! :blank? blank?)
   (sf/add-filter! :present? #(not (blank? %)))
   (sf/add-filter! :markdown kramdown)
+  (sf/add-filter! :markdown-default markdown-default)
   (sf/add-filter! :format str)
   (sf/add-filter! :list-or list-or)
   (sf/add-filter! :mean-roll util/mean-roll)
@@ -109,12 +109,13 @@
   (sf/add-filter! :skills-list skills-list)
   (sf/add-filter! :damage-resistances-list damage-resistances-list))
 
-(defn render [& names]
-  (sp/cache-off!)
+(defn render [opts names]
+  ;;(sp/cache-off!) ;; do I need this?
   (let [sorted (sort names)
-        filename (str (str/join "-" sorted) ".tex")
         ctxs (map context sorted)]
     (add-filters)
-    (spit filename (print-str (sp/render-file "monster.tex.selmer"
-                                              {:monsters ctxs}
-                                              options)))))
+    (spit (str (:output opts) ".tex")
+          (print-str (sp/render-file "monster.tex.selmer"
+                                     {:monsters ctxs
+                                      :color? (:color opts)}
+                                     selmer-options)))))

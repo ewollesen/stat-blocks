@@ -6,6 +6,7 @@
 \usepackage{tikz, array, booktabs, tabularx, titlesec}
 \usepackage[framemethod=tikz]{mdframed}
 \usepackage[top=2cm, bottom=2cm, left=2cm, right=2cm]{geometry}
+% biolinum doesn't have a bold smallcaps font, so use libertine's
 \usepackage{libertineRoman}
 \usepackage{biolinum}
 \usepackage{enumitem}
@@ -27,8 +28,13 @@
 \definecolor{grey}{rgb}{0.61, 0.61, 0.61}
 \definecolor{monster}{rgb}{0.61, 0.18, 0.11}
 \definecolor{blood}{rgb}{0.34, 0.09, 0.05}
+<% if color? %>
 \colorlet{stats}{blood}
 \colorlet{rules}{monster}
+<% else %>
+\colorlet{stats}{black}
+\colorlet{rules}{grey}
+<% endif %>
 
 %%% STAT BLOCK COMMANDS
 \newcommand{\blocksep}{
@@ -124,7 +130,7 @@
   \multicolumn{6}{p{0.9\linewidth}}{
     \textbf{\textit{#1.}}
     \emph{#2:} #3 to hit, #4, #5.
-    \emph{Hit:} #6 #7 damage\IfEq{nil}{#8}{}{ #8}.
+    \emph{Hit:} #6 #7 damage\IfEq{nil}{#8}{.}{#8}
   }
   \vspace{5pt}
 }

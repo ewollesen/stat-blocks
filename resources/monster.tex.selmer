@@ -7,7 +7,7 @@
   \name{<{ m.name|title }>} \\
   \basics{<{ m.size|title }>}{<{ m.type }>}{<{ m.alignment }>} \\
   \blocksep \\
-  \stat{Armor Class}{<{ m.ac }><% if m.ac-details %> (<{ m.ac-details }>)<% endif %>} \\
+  \stat{Armor Class}{<{ m.ac }><% if m.ac-details %> (<{ m.ac-details|markdown }>)<% endif %>} \\
     \stat{Hit Points}{<{ m.hp|mean-roll }> (<{ m.hp }>)} \\
     \stat{Speed}{<{ m.movements|speed }>} \\
     \blocksep \\ [-1.5ex] \\
@@ -30,11 +30,11 @@
     <% if m.damage-vulnerabilities|present? %>
     \stat{Damage Vulnerabilities}{<{ m.damage-vulnerabilities|join:", " }>} \\
     <% endif %>
-    <% if m.damage-immunities|present? %>
-    \stat{Damage Immunities}{<{ m.damage-immunities|join:", " }>} \\
-    <% endif %>
     <% if m.damage-resistances|present? %>
     \stat{Damage Resistances}{<{ m.damage-resistances|damage-resistances-list }>} \\
+    <% endif %>
+    <% if m.damage-immunities|present? %>
+    \stat{Damage Immunities}{<{ m.damage-immunities|join:", " }>} \\
     <% endif %>
     \stat{Senses}{<{ m.senses|join:", " }>} \\
     \stat{Languages}{<{ m.languages|list-or:"--" }>} \\

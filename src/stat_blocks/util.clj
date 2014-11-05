@@ -25,11 +25,13 @@
       (str/join ", and " [(str/join ", " head) tail]))))
 
 (defn loader [name]
-  (with-open [r (-> (str name ".edn")
-                    io/resource
-                    io/reader
-                    java.io.PushbackReader.)]
-    (edn/read r)))
+  (try
+    (with-open [r (-> (str name ".edn")
+                     io/resource
+                     io/reader
+                     java.io.PushbackReader.)]
+      (edn/read r))
+    (catch Exception e (println "Error loading edn file:" (str name ".edn")))))
 
 (defn mean-roll [text]
   (let [[_ rolls sides sign mod] (re-find die-roll-re text)

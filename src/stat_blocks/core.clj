@@ -5,9 +5,19 @@
             [clojure.java.io :as io]
             [clojure.string :as str]
 
+            [clojure.tools.cli :refer [parse-opts]]
+
             [stat-blocks.selmer :as latex]
             [stat-blocks.util :as util])
   (:gen-class))
+
+
+(def cli-options
+  [["-o" "--output FILENAME" "Output filename (w/o extension)"
+    :default "monsters"
+    :parse-fn str]
+   ["-c" "--color" "Generates full color output"]
+   ["-h" "--help"]])
 
 
 
@@ -176,26 +186,20 @@
 (defn go-selmer
   ([] (go-selmer ["deep-gnome"]))
   ([names]
-     (let [rt (.. Runtime (getRuntime))]
-       (doseq [name names]
-         (.. Runtime (getRuntime) (exec (str "touch resources/template.tex.selmer")))
-         (latex/render name))
-       (doseq [name names]
-         (.. Runtime (getRuntime) (exec (str "pdflatex " name  ".tex")))
-         (println "done" name)
-         ;; (.. Runtime (getRuntime) (exec (str "zathura " name  ".pdf")))
-         ))))
+     (doseq [name names]
+       (.. Runtime (getRuntime) (exec (str "touch resources/template.tex.selmer")))
+       (latex/render name))
+     (doseq [name names]
+       (.. Runtime (getRuntime) (exec (str "pdflatex " name  ".tex")))
+       (println "done" name)
+       ;; (.. Runtime (getRuntime) (exec (str "zathura " name  ".pdf")))
+       )))
 
-(defn -main
-  [& names]
-  (doseq [name names]
-    (spit (str name ".html")
-          (print-str (render-resource "page.html.mustache"
-                                      (-> name
-                                          util/loader
-                                          merge-existence-checks
-                                          merge-ability-modifiers
-                                          merge-utils)
-                                      partials)))
-
-    (apply latex/render names)))
+(defn -main [& args]
+  (let [opts (parse-opts args cli-options)
+        names (:arguments opts)
+        filename (get-in opts [:options :output])
+        errors (:errors opts)]
+    (if (empty? errors)
+      (latex/render (:options opts) names)
+      (println (str/join "\n" errors)))))
