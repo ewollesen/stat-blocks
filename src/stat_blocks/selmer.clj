@@ -29,9 +29,13 @@
       io/file
       slurp))
 
+(defn merge-context-utils [context]
+  (merge context {:actions (map #(merge % {:reach-and-range "reach ? ft."}) (:actions context))}))
+
 (defn context [name]
   (-> name
-      util/loader))
+      util/loader
+      merge-context-utils))
 
 (defn blank? [text]
   (or (nil? text)
@@ -77,6 +81,9 @@
           base (first bases)
           base-str (str (:value base) " ft.")]
       (str/join ", " (into [base-str] (map #(alt-speed %) alts))))))
+
+(defn reach-and-range [text]
+  "?? ft.")
 
 (defn add-filters [ctx]
   (sf/add-filter! :blank? blank?)
