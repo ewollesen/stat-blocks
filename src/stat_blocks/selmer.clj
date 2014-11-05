@@ -29,8 +29,20 @@
       io/file
       slurp))
 
+(defn render-reach-and-range [action]
+  (let [reach (when (contains? action :reach)
+                (str "reach " (:reach action) " ft."))
+        range (when (contains? action :range)
+                (str "range " (str/join "/" (map str (:range action))) " ft."))]
+    (str/join " or " (filter identity [reach range]))))
+
+(defn merge-reach-and-range [context]
+  (let [f #(merge % {:reach-and-range (render-reach-and-range %)})]
+    (merge context {:actions (map f (:actions context))})))
+
 (defn merge-context-utils [context]
-  (merge context {:actions (map #(merge % {:reach-and-range "reach ? ft."}) (:actions context))}))
+  (-> context
+      merge-reach-and-range))
 
 (defn context [name]
   (-> name
@@ -83,8 +95,9 @@
           base-str (str (:value base) " ft.")]
       (str/join ", " (into [base-str] (map #(alt-speed %) alts))))))
 
-(defn reach-and-range [text]
-  "?? ft.")
+(defn reach-and-range [context]
+  (fn [text]
+    "?? ft."))
 
 (defn add-filters [ctx]
   (sf/add-filter! :blank? blank?)

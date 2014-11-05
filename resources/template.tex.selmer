@@ -27,12 +27,10 @@
 %%% STAT BLOCK COMMANDS
 \newcommand{\blocksep}{
   \multicolumn{6}{l}{
-    \vspace{0pt}
     \begin{tikzpicture}
       \fill[graphite]
       (0,0) -- (0.95\linewidth,0.07) -- (0,0.14) -- cycle;
     \end{tikzpicture}
-    \vspace{0pt}
   }
 }
 \newcommand{\sectionrule}{
@@ -172,7 +170,7 @@
   <% for action in actions %>
   <% if action.text|blank? %>
   \attack{<{ action.name|title }>}
-         {<{ action.attack-type|title }>}
+         {<{ action.attack-type }>}
          {<{ action.to-hit|mod }>}
          {<{ action.reach-and-range }>}
          {<{ action.target }>}

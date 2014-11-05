@@ -62,10 +62,19 @@
             :name "light crossbow"
             :attack-type "Ranged Weapon Attack"
             :to-hit 3
-            :reach 5
             :range [80 320]
             :target "one target"
             :hit "1d8 + 1"
+            :damage-type "piercing"
+            }
+           {
+            :name "dagger"
+            :attack-type "Melee or Ranged Weapon Attack"
+            :to-hit 3
+            :reach 5
+            :range [20 60]
+            :target "one target"
+            :hit "1d4 + 1"
             :damage-type "piercing"
             }
            ]
