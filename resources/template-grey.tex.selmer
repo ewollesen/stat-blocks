@@ -8,7 +8,6 @@
 \usepackage[top=2cm, bottom=2cm, left=2cm, right=2cm]{geometry}
 \usepackage{libertineRoman}
 \usepackage{biolinum}
-\usepackage{enumitem}
 
 \mdfdefinestyle{monster}{
   hidealllines=true,
@@ -18,7 +17,6 @@
   innerrightmargin=3pt,
 }
 
-\setlist[description]{font=\normalfont,noitemsep}
 \renewcommand\familydefault{\sfdefault}
 
 
@@ -26,8 +24,8 @@
 \definecolor{grey}{rgb}{0.61, 0.61, 0.61}
 \definecolor{monster}{rgb}{0.61, 0.18, 0.11}
 \definecolor{blood}{rgb}{0.34, 0.09, 0.05}
-\colorlet{stats}{blood}
-\colorlet{rules}{monster}
+\colorlet{stats}{black}
+\colorlet{rules}{grey}
 
 %%% STAT BLOCK COMMANDS
 \newcommand{\blocksep}{
@@ -203,7 +201,7 @@
            {<{ action.hit|mean-roll }>~(<{ action.hit }>)}
            {<{ action.damage-type }>} \\
            <% else %>
-           \action{<{ action.name|title }>}{<{ action.text|markdown }>} \\
+           \action{<{ action.name|title }>}{<{ action.text }>} \\
            <% endif %>
            <% endfor %>
            <% if reactions|present? %>

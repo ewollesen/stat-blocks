@@ -174,7 +174,7 @@
                      (load-partial "stat-block")))
 
 (defn go-selmer
-  ([] (go-selmer ["sample"]))
+  ([] (go-selmer ["deep-gnome"]))
   ([names]
      (let [rt (.. Runtime (getRuntime))]
        (doseq [name names]
@@ -182,11 +182,11 @@
          (latex/render name))
        (doseq [name names]
          (.. Runtime (getRuntime) (exec (str "pdflatex " name  ".tex")))
+         (println "done" name)
          ;; (.. Runtime (getRuntime) (exec (str "zathura " name  ".pdf")))
          ))))
 
 (defn -main
-  "I don't do a whole lot ... yet."
   [& args]
   (doseq [name args]
     (spit (str name ".html")
@@ -207,3 +207,8 @@
     ;;                                       merge-utils))))
 
     (latex/render name)))
+
+;; \begin{description}[leftmargin=0pt,itemsep=-1ex,font=\normalfont]
+;; \item[At will:] \emph{nondetection} (self only)
+;; \item[1/day each:] \emph{blindness/deafness}, \emph{blur}, \emph{disguise self}.
+;; \end{description}

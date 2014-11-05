@@ -1,4 +1,5 @@
 (ns stat-blocks.selmer
+  (:use [clojure.java.shell :only [sh]])
   (:require [clojure.java.io :as io]
             [clojure.string :as str]
 
@@ -10,6 +11,7 @@
 
 (def options {:tag-open \< :tag-close \>})
 (def template "template.tex.selmer")
+(def template-grey "template-grey.tex.selmer")
 
 
 (defn format-mod [text]
@@ -99,10 +101,13 @@
   (fn [text]
     "?? ft."))
 
+(defn kramdown [text]
+  (str/trim (:out (sh "kramdown" "-o" "latex" "-i" "kramdown" :in text))))
+
 (defn add-filters [ctx]
   (sf/add-filter! :blank? blank?)
   (sf/add-filter! :present? #(not (blank? %)))
-  (sf/add-filter! :markdown str)
+  (sf/add-filter! :markdown kramdown)
   (sf/add-filter! :format str)
   (sf/add-filter! :list-or list-or)
   (sf/add-filter! :mean-roll util/mean-roll)
