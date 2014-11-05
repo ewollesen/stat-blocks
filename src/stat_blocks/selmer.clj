@@ -38,6 +38,7 @@
       merge-context-utils))
 
 (defn blank? [text]
+  ;; (println "blank? received" text (or (nil? text)(= "" text)))
   (or (nil? text)
       (= "" text)))
 
@@ -87,6 +88,7 @@
 
 (defn add-filters [ctx]
   (sf/add-filter! :blank? blank?)
+  (sf/add-filter! :present? #(not (blank? %)))
   (sf/add-filter! :markdown str)
   (sf/add-filter! :format str)
   (sf/add-filter! :list-or list-or)

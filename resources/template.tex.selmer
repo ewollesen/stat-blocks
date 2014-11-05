@@ -48,9 +48,9 @@
     \LARGE{{\fontfamily{cmr}\fontshape{sc}\selectfont #1}}
   }
 }
-\newcommand{\type}[1]{
+\newcommand{\basics}[3]{
   \multicolumn{6}{p{0.9\linewidth}}{
-    \small{\em #1}
+    \small{\em #1 #2, #3}
   }
 }
 \newcommand{\stat}[2]{
@@ -129,7 +129,7 @@
 \begin{monster}{b}
   \specialrule{4pt}{-3pt}{6pt}
   \name{<{ name|title }>} \\
-  \type{<{ size|title }> <{ type }>, <{ alignment }>} \\
+  \basics{<{ size|title }>}{<{ type }>}{<{ alignment }>} \\
   \blocksep \\
   \stat{Armor Class}{<{ ac }><% if ac-details %> (<{ ac-details }>)<% endif %>} \\
   \stat{Hit Points}{<{ hp|mean-roll }> (<{ hp }>)} \\
@@ -142,22 +142,22 @@
   \attribute{WIS}{<{ abilities.wis }>~(<{ abilities.wis|ability-mod }>)} &
   \attribute{CHA}{<{ abilities.cha }>~(<{ abilities.cha|ability-mod }>)} \\
   \blocksep \\
-  <% if not saving-throws|blank? %>
+  <% if saving-throws|present? %>
   \stat{Saving Throws}{<{ saving-throws|saves-list }>} \\
   <% endif %>
-  <% if not skills|blank? %>
+  <% if skills|present? %>
   \stat{Skills}{<{ skills|skills-list }>} \\
   <% endif %>
-  <% if not condition-immunities|blank? %>
+  <% if condition-immunities|present? %>
   \stat{Condition Immunities}{<{ condition-immunities|join:", " }>} \\
   <% endif %>
-  <% if not damage-vulnerabilities|blank? %>
+  <% if damage-vulnerabilities|present? %>
   \stat{Damage Vulnerabilities}{<{ damage-vulnerabilities|join:", " }>} \\
   <% endif %>
-  <% if not damage-immunities|blank? %>
+  <% if damage-immunities|present? %>
   \stat{Damage Immunities}{<{ damage-immunities|join:", " }>} \\
   <% endif %>
-  <% if not damage-resistances|blank? %>
+  <% if damage-resistances|present? %>
   \stat{Damage Resistances}{<{ damage-resistances|damage-resistances-list }>} \\
   <% endif %>
   \stat{Senses}{<{ senses|join:", " }>} \\
