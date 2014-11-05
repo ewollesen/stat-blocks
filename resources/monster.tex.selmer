@@ -53,7 +53,8 @@
            {<{ action.reach-and-range }>}
            {<{ action.target }>}
            {<{ action.hit|mean-roll }>~(<{ action.hit }>)}
-           {<{ action.damage-type }>} \\
+           {<{ action.damage-type }>}
+           {<{ action.damage-details|default:"nil" }>} \\
     <% else %>
     \action{<{ action.name|title }>}{<{ action.text|markdown }>} \\
     <% endif %>

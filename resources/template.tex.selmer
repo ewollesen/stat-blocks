@@ -9,6 +9,7 @@
 \usepackage{libertineRoman}
 \usepackage{biolinum}
 \usepackage{enumitem}
+\usepackage{xstring}
 
 \mdfdefinestyle{monster}{
   hidealllines=true,
@@ -119,11 +120,11 @@
   }
   \vspace{5pt}
 }
-\newcommand{\attack}[7]{
+\newcommand{\attack}[8]{
   \multicolumn{6}{p{0.9\linewidth}}{
     \textbf{\textit{#1.}}
     \emph{#2:} #3 to hit, #4, #5.
-    \emph{Hit:} #6 #7 damage.
+    \emph{Hit:} #6 #7 damage\IfEq{nil}{#8}{}{ #8}.
   }
   \vspace{5pt}
 }

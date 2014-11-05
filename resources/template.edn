@@ -45,6 +45,12 @@
  :languages []
  :challenge 0
  :xp 0
+ :features [
+            ;; {
+            ;;  :name "Keen smell"
+            ;;  :text "This is where I talk about keen smell."
+            ;;  }
+            ]
  :actions [
            ;; Typically, if :text is filled out, then desc, to-hit, reach, etc
            ;; are not.
@@ -68,10 +74,4 @@
              ;;  :text "This is an example reaction."
              ;;  }
              ]
- :features [
-            ;; {
-            ;;  :name "Keen smell"
-            ;;  :text "This is where I talk about keen smell."
-            ;;  }
-            ]
  }

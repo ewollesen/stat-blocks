@@ -187,8 +187,8 @@
          ))))
 
 (defn -main
-  [& args]
-  (doseq [name args]
+  [& names]
+  (doseq [name names]
     (spit (str name ".html")
           (print-str (render-resource "page.html.mustache"
                                       (-> name
@@ -198,12 +198,4 @@
                                           merge-utils)
                                       partials)))
 
-    ;; (spit (str name ".tex")
-    ;;       (print-str (render-resource "template.tex.mustache"
-    ;;                                   (-> name
-    ;;                                       util/loader
-    ;;                                       merge-existence-checks
-    ;;                                       merge-ability-modifiers
-    ;;                                       merge-utils))))
-
-    (latex/render name)))
+    (apply latex/render names)))
