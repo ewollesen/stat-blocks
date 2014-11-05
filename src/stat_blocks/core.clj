@@ -207,8 +207,3 @@
     ;;                                       merge-utils))))
 
     (latex/render name)))
-
-;; \begin{description}[leftmargin=0pt,itemsep=-1ex,font=\normalfont]
-;; \item[At will:] \emph{nondetection} (self only)
-;; \item[1/day each:] \emph{blindness/deafness}, \emph{blur}, \emph{disguise self}.
-;; \end{description}
