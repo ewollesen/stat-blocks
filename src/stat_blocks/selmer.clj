@@ -33,7 +33,7 @@
   (let [reach (when (contains? action :reach)
                 (str "reach " (:reach action) " ft."))
         range (when (contains? action :range)
-                (str "range " (str/join "/" (map str (:range action))) " ft."))]
+                (str "range " (str/join "/" (map #(str % " ft.") (:range action)))))]
     (str/join " or " (filter identity [reach range]))))
 
 (defn merge-reach-and-range [context]

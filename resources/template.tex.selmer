@@ -180,12 +180,14 @@
   \action{<{ action.name|title }>}{<{ action.text }>} \\
   <% endif %>
   <% endfor %>
+  <% if reactions|present? %>
   \reactions \\
   \sectionrule \\
   <% for reaction in reactions %>
   \action{<{ reaction.name|title }>}{<{ reaction.text }>} \\
   <% endfor %>
-  <% if not legendary-actions|blank? %>
+  <% endif %>
+  <% if legendary-actions|present? %>
   \legendaryactions \\
   \sectionrule \\
   <% if not legendary-actions.intro|blank? %>
