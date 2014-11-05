@@ -1,14 +1,14 @@
 %% -*- latex -*-
 %% <% safe %>
 %% based on http://pastebin.com/JknSiM9u
-\documentclass[letterpaper, 10pt, twocolumn]{extarticle}
+\documentclass[letterpaper, 10pt, twocolumn]{article}
 \usepackage[usenames, dvipsnames, table]{xcolor}
 \usepackage{tikz, array, booktabs, tabularx, titlesec}
 \usepackage[framemethod=tikz]{mdframed}
-\usepackage[top=2cm, bottom=2cm, left=2cm, right=2cm]{geometry}
+\usepackage[margin=2cm]{geometry}
 % biolinum doesn't have a bold smallcaps font, so use libertine's
-\usepackage{libertineRoman}
-\usepackage{biolinum}
+%\usepackage{libertineRoman}
+%\usepackage{biolinum}
 \usepackage{enumitem}
 \usepackage{xstring}
 
@@ -22,7 +22,7 @@
 
 \setlist[description]{font=\normalfont,noitemsep}
 \renewcommand\familydefault{\sfdefault}
-
+\setlength{\columnsep}{-0.5in}
 
 %%% COLORS
 \definecolor{grey}{rgb}{0.61, 0.61, 0.61}
@@ -35,6 +35,11 @@
 \colorlet{stats}{black}
 \colorlet{rules}{grey}
 <% endif %>
+
+% fonts to try:
+% gillius
+% junicode
+% quattrocento
 
 %%% STAT BLOCK COMMANDS
 \newcommand{\blocksep}{
@@ -55,7 +60,8 @@
 }
 \newcommand{\name}[1]{
   \multicolumn{6}{p{0.9\linewidth}}{
-    \huge{\textcolor{stats}{\textbf{\fontshape{sc}\rmfamily\selectfont #1}}}
+    \raggedright
+    \huge{\textcolor{stats}{\fontshape{sc}\rmfamily\selectfont #1}}
   }
 }
 %% \newcommand{\name}[1]{
@@ -66,22 +72,26 @@
 %% }
 \newcommand{\basics}[3]{
   \multicolumn{6}{p{0.9\linewidth}}{
+    \raggedright
     \small{\em #1 #2, #3}
   }
 }
 \newcommand{\stat}[2]{
   \multicolumn{6}{p{0.9\linewidth}}{
+    \raggedright
     \textcolor{stats}{{\textbf{#1} #2}}
   }
 }
 \newcommand{\ab}[2]{
   \multicolumn{6}{p{0.9\linewidth}}{
+    \raggedright
     \textit{\textbf{#1.}} #2
   }
   \vspace{5pt}
 }
 \newcommand{\headline}[1]{
   \multicolumn{6}{p{0.9\linewidth}}{
+    \raggedright
     \Large{\textcolor{stats}{\fontshape{sc}\sffamily\selectfont #1}}
   } \\ [-4.5ex]
 }
@@ -115,12 +125,14 @@
 %% needs a better name!
 \newcommand{\blurb}[1]{
   \multicolumn{6}{p{0.9\linewidth}}{
+    \raggedright
     #1
   }
   \vspace{5pt}
 }
 \newcommand{\action}[2]{
   \multicolumn{6}{p{0.9\linewidth}}{
+    \raggedright
     \textbf{\textit{#1.}}
     #2
   }
@@ -128,6 +140,7 @@
 }
 \newcommand{\attack}[8]{
   \multicolumn{6}{p{0.9\linewidth}}{
+    \raggedright
     \textbf{\textit{#1.}}
     \emph{#2:} #3 to hit, #4, #5.
     \emph{Hit:} #6 #7 damage\IfEq{nil}{#8}{.}{#8}
@@ -154,7 +167,7 @@
 \titlespacing{\subsection}{0pt}{*1}{*1}
 
 \begin{document}
-
+\frenchspacing
 \title{DnD 5e Monster Manual Template}
 
 <% block monster %>

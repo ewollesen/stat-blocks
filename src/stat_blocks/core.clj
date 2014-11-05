@@ -201,5 +201,7 @@
         filename (get-in opts [:options :output])
         errors (:errors opts)]
     (if (empty? errors)
-      (latex/render (:options opts) names)
-      (println (str/join "\n" errors)))))
+      (do (latex/render (:options opts) names)
+          (System/exit 0))
+      (do (println (str/join "\n" errors))
+          (System/exit 1)))))

@@ -6,8 +6,10 @@
 
             [selmer.parser :as sp]
             [selmer.filters :as sf]
+            ;;[taoensso.timbre :as timbre]
 
             [stat-blocks.util :as util]))
+;;(timbre/refer-timbre)
 
 
 (def selmer-options {:tag-open \< :tag-close \>})
@@ -110,7 +112,7 @@
   (sf/add-filter! :damage-resistances-list damage-resistances-list))
 
 (defn render [opts names]
-  ;;(sp/cache-off!) ;; do I need this?
+  (sp/cache-off!) ;; do I need this?
   (let [sorted (sort names)
         ctxs (map context sorted)]
     (add-filters)
