@@ -38,8 +38,6 @@
   \attribute{Languages}{<{ m.languages|list-or:"--" }>}
   \attribute{Challenge}{<{ m.challenge }> (<{ m.xp }> XP)}
   \wedgerule
-  %% 1/8 in vspace
-  \vspace{0.125in}
   <% for feature in m.features %>
   \action{<{ feature.name|title }>}{<{ feature.text|markdown }>}
   <% endfor %>
@@ -66,8 +64,8 @@
   <% endif %>
   <% if m.legendary-actions.actions %>
   \group{Legendary Actions} \\
+  \addvspace{0.75\sectionpad}
   <{ m.legendary-actions.intro }> \\
-  \addvspace{1ex}
   <% for action in m.legendary-actions.actions %>
   \action{<{ action.name|title }>}{<{ action.text|markdown }>}
   <% endfor %>

@@ -23,11 +23,10 @@
 \frenchspacing
 \newlength\origparindent
 \newlength\abilitiespad
-\setlength{\abilitiespad}{0.0625in}
-\newlength\wedgepad
-\setlength{\wedgepad}{0.0625in}
+\setlength{\abilitiespad}{1ex}
 \newlength\sectionpad
 \setlength{\sectionpad}{2ex}
+\setlength{\columnsep}{0.375in}
 
 \definecolor{grey}{rgb}{0.61, 0.61, 0.61}
 \definecolor{monster}{rgb}{0.61, 0.18, 0.11}
@@ -79,10 +78,12 @@
 }
 
 \newcommand{\action}[2]{
+  \addvspace{0.75\sectionpad}
   \textbf{\textit{#1.}} #2
 }
 
 \newcommand{\attack}[8]{
+  \addvspace{0.75\sectionpad}
   \textbf{\textit{#1.}}{
     \textit{#2:} #3 to hit, #4, #5.
     \textit{Hit:} #6 #7 damage\IfEq{nil}{#8}{.}{#8}
@@ -90,11 +91,11 @@
 }
 
 \newcommand{\group}[1]{
-  \addvspace{2ex}
+  \addvspace{\sectionpad}
   \textsc{\textsf{\Large #1}} \\
   \vspace{-1\sectionpad}
   \sectionrule
-  \vspace{-1.25\sectionpad}
+  \vspace{-2\sectionpad}
 }
 
 \newcommand{\sectionrule}{
@@ -104,12 +105,10 @@
 }
 
 \newcommand{\wedgerule}{
-  %% \addvspace{\wedgepad}
   \begin{tikzpicture}
     \fill[rules]
     (0,0) -- (1\linewidth,0.0575) -- (0,0.115) -- cycle;
   \end{tikzpicture} \\
-  %% \addvspace{\wedgepad}
 }
 
 \begin{document}

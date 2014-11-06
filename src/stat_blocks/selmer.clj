@@ -110,7 +110,7 @@
 (defn add-filters []
   (sf/add-filter! :title title)
   (sf/add-filter! :blank? str/blank?)
-  (sf/add-filter! :present? #(not (blank? %)))
+  (sf/add-filter! :present? #(not (str/blank? %)))
   (sf/add-filter! :markdown kramdown)
   (sf/add-filter! :format str)
   (sf/add-filter! :list-or list-or)
@@ -123,22 +123,11 @@
   (sf/add-filter! :damage-resistances-list damage-resistances-list))
 
 (defn render [opts names]
-  (sp/cache-off!) ;; do I need this?
-  (let [sorted (sort names)
-        ctxs (map context sorted)]
-    (add-filters)
-    (spit (str (:output opts) ".tex")
-          (print-str (sp/render-file "monster.tex.selmer"
-                                     {:monsters ctxs
-                                      :color? (:color opts)}
-                                     selmer-options)))))
-
-(defn render-test [names]
   (sp/cache-off!)
   (let [sorted (sort names)
         ctxs (map context sorted)]
     (add-filters)
-    (spit "render-test.tex"
+    (spit (str (str/trim (:output opts)) ".tex")
           (print-str (sp/render-file "block.tex.selmer"
                                      {:monsters ctxs :color? false}
                                      selmer-options)))))
