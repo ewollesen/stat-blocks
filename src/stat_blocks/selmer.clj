@@ -31,7 +31,7 @@
   (let [reach (when (contains? action :reach)
                 (str "reach " (:reach action) " ft."))
         range (when (contains? action :range)
-                (str "range " (str/join "/" (map #(str % " ft.") (:range action)))))]
+                (str "range " (str/join "/" (:range action)) " ft."))]
     (str/join " or " (filter identity [reach range]))))
 
 (defn merge-reach-and-range [context]
@@ -47,15 +47,14 @@
       util/loader
       merge-context-utils))
 
-(defn blank? [text]
-  (or (nil? text)
-      (= "" text)))
-
 (defn simple-list [label modifier]
   (fn [map]
     (format "%s %s"
             (str/capitalize (label map))
             (format-mod (modifier map)))))
+
+(defn title [text]
+  (str/replace text #"\b([a-z]+)" (comp str/capitalize last)))
 
 (defn complex-list [resistance]
   (cond
@@ -88,19 +87,31 @@
         base-str (str (:value base) " ft.")]
     (str/join ", " (into [base-str] (map #(alt-speed %) alts)))))
 
-(defn kramdown [text]
-  (str/trim (:out (sh "kramdown" "-o" "latex" "-i" "kramdown" :in text))))
+(defn fix-emph [text]
+  (str/replace text
+               #"\\emph\{([^}]*)\}"
+               "{\\\\fontshape{it}\\\\selectfont $1}")
+  ;; (str/replace (str/trim markdown) "\\emph{" "{\\em ")
+  ;; (str/replace (str/trim markdown) "\\emph{" "\\textit{")
+  ;; (str/replace markdown #"\\emph\{([^}]*)\}" "{\\\\em $1}")
+  ;; (str/trim markdown)
+  ;; text
+  )
 
-(defn markdown-default [text default]
-  (if (blank? text)
-    default
-    (kramdown text)))
+(defn kramdown [text]
+  ;; kramdown renders *text* as \emph{text}, but in some places, this output
+  ;; needs to get passed into a command, and they don't accept \emph{},
+  ;; however, they *do* accept {\it text}, so swap them out.
+  (let [markdown (:out (sh "kramdown" "-o" "latex" :in text))]
+    (-> markdown
+        str/trim
+        fix-emph)))
 
 (defn add-filters []
-  (sf/add-filter! :blank? blank?)
+  (sf/add-filter! :title title)
+  (sf/add-filter! :blank? str/blank?)
   (sf/add-filter! :present? #(not (blank? %)))
   (sf/add-filter! :markdown kramdown)
-  (sf/add-filter! :markdown-default markdown-default)
   (sf/add-filter! :format str)
   (sf/add-filter! :list-or list-or)
   (sf/add-filter! :mean-roll util/mean-roll)
@@ -120,4 +131,14 @@
           (print-str (sp/render-file "monster.tex.selmer"
                                      {:monsters ctxs
                                       :color? (:color opts)}
+                                     selmer-options)))))
+
+(defn render-test [names]
+  (sp/cache-off!)
+  (let [sorted (sort names)
+        ctxs (map context sorted)]
+    (add-filters)
+    (spit "render-test.tex"
+          (print-str (sp/render-file "block.tex.selmer"
+                                     {:monsters ctxs :color? false}
                                      selmer-options)))))

@@ -1,0 +1,121 @@
+%% -*- latex -*-
+%% <% safe %>
+\documentclass[letterpaper, 10pt, twocolumn]{article}
+
+\usepackage{enumitem}
+\usepackage[top=0.75in, right=0.6875in, bottom=0.75in, left=0.6875in]{geometry}
+\usepackage{hanging}
+\usepackage{tabu}
+\usepackage[usenames]{xcolor} %% must come before tikz
+\usepackage{tikz}
+\usepackage{xstring}
+
+\usepackage{libertineRoman}
+\usepackage{biolinum}
+
+\setlist[description]{
+  font=\normalfont,
+  noitemsep,
+  labelsep=0.5ex,
+  leftmargin=2ex
+}
+\renewcommand\familydefault{\sfdefault}
+\frenchspacing
+\newlength\origparindent
+\newlength\abilitiespad
+\setlength{\abilitiespad}{0.0625in}
+\newlength\wedgepad
+\setlength{\wedgepad}{0.0625in}
+\newlength\sectionpad
+\setlength{\sectionpad}{2ex}
+
+\definecolor{grey}{rgb}{0.61, 0.61, 0.61}
+\definecolor{monster}{rgb}{0.61, 0.18, 0.11}
+\definecolor{blood}{rgb}{0.34, 0.09, 0.05}
+<% if color? %>
+\colorlet{stats}{blood}
+\colorlet{rules}{monster}
+<% else %>
+\colorlet{stats}{black}
+\colorlet{rules}{grey}
+<% endif %>
+
+\newenvironment{statblock}{
+  \setlength{\origparindent}{\parindent}
+  \setlength{\parindent}{0pt}
+  \begin{figure}
+  \begin{flushleft}
+}{
+  \end{flushleft}
+  \end{figure}
+  \setlength{\parindent}{\origparindent}
+}
+
+\newenvironment{abilities}{
+  \wedgerule
+  \addvspace{\abilitiespad}
+  \begin{tabu} to 0.9\columnwidth {XXXXXX}
+    \rowfont[c]\bfseries
+    STR & DEX & CON & INT & WIS & CHA \\
+    \rowfont[c]\normalfont
+}{
+  \end {tabu} \\
+  \addvspace{\abilitiespad}
+  \wedgerule
+}
+
+\newenvironment{actiontext}{
+  \leftskip 0ex
+  \parindent 0ex
+}{
+  \leftskip 0ex
+  \parindent 0ex
+}
+
+\newcommand{\attribute}[2]{
+  \begin{hangparas}{2ex}{1}
+    \textbf{#1} #2
+  \end{hangparas}
+}
+
+\newcommand{\action}[2]{
+  \textbf{\textit{#1.}} #2
+}
+
+\newcommand{\attack}[8]{
+  \textbf{\textit{#1.}}{
+    \textit{#2:} #3 to hit, #4, #5.
+    \textit{Hit:} #6 #7 damage\IfEq{nil}{#8}{.}{#8}
+  }
+}
+
+\newcommand{\group}[1]{
+  \addvspace{2ex}
+  \textsc{\textsf{\Large #1}} \\
+  \vspace{-1\sectionpad}
+  \sectionrule
+  \vspace{-1.25\sectionpad}
+}
+
+\newcommand{\sectionrule}{
+  \begin{tikzpicture}
+    \filldraw[stats] (0,0) -- (1\linewidth,0);
+  \end{tikzpicture}
+}
+
+\newcommand{\wedgerule}{
+  %% \addvspace{\wedgepad}
+  \begin{tikzpicture}
+    \fill[rules]
+    (0,0) -- (1\linewidth,0.0575) -- (0,0.115) -- cycle;
+  \end{tikzpicture} \\
+  %% \addvspace{\wedgepad}
+}
+
+\begin{document}
+<% block stats %>
+Arghhh! Here there be stats!
+<% endblock %>
+\end {document}
+
+%% <% endsafe %>

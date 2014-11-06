@@ -5,7 +5,7 @@
 \usepackage[usenames, dvipsnames, table]{xcolor}
 \usepackage{tikz, array, booktabs, tabularx, titlesec}
 \usepackage[framemethod=tikz]{mdframed}
-\usepackage[margin=2cm]{geometry}
+\usepackage[top=0.75in, right=0.6875in bottom=0.75in, left=0.6875in]{geometry}
 % biolinum doesn't have a bold smallcaps font, so use libertine's
 %\usepackage{libertineRoman}
 %\usepackage{biolinum}
