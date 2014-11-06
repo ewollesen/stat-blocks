@@ -53,7 +53,7 @@
 \newenvironment{abilities}{
   \wedgerule
   \addvspace{\abilitiespad}
-  \begin{tabu} to 0.9\columnwidth {XXXXXX}
+  \begin{tabu} to 0.95\linewidth {XXXXXX}
     \rowfont[c]\bfseries
     STR & DEX & CON & INT & WIS & CHA \\
     \rowfont[c]\normalfont
