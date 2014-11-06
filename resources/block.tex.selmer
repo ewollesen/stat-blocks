@@ -22,9 +22,6 @@
   <% if m.skills %>
   \attribute{Skills}{<{ m.skills|skills-list }>}
   <% endif %>
-  <% if m.condition-immunities %>
-  \attribute{Condition Immunities}{<{ m.condition-immunities|join:", " }>}
-  <% endif %>
   <% if m.damage-vulnerabilities %>
   \attribute{Damage Vulnerabilities}{<{ m.damage-vulnerabilities|join:", " }>}
   <% endif %>
@@ -33,6 +30,9 @@
   <% endif %>
   <% if m.damage-immunities %>
   \attribute{Damage Immunities}{<{ m.damage-immunities|join:", " }>}
+  <% endif %>
+  <% if m.condition-immunities %>
+  \attribute{Condition Immunities}{<{ m.condition-immunities|join:", " }>}
   <% endif %>
   \attribute{Senses}{<{ m.senses|join:", " }>}
   \attribute{Languages}{<{ m.languages|list-or:"--" }>}
