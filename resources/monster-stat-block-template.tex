@@ -1,0 +1,172 @@
+%% -*- latex -*-
+%%
+%% A D&D Monster Manual-like Stat Block Template
+%%
+%% <encoded at xmtp dot net>
+%%
+%% MIT license.
+
+\documentclass[letterpaper, 10pt, twocolumn]{article}
+
+\usepackage{enumitem}
+\usepackage[top=0.75in, right=0.6875in, bottom=0.75in, left=0.6875in]{geometry}
+\usepackage{hanging}
+\usepackage{tabu}
+\usepackage[usenames]{xcolor} %% must come before tikz
+\usepackage{tikz}
+\usepackage{xstring}
+\usepackage{libertineRoman}
+\usepackage{biolinum}
+
+\renewcommand\familydefault{\sfdefault}
+\setlist[description]{
+  font=\normalfont,
+  noitemsep,
+  labelsep=0.5ex,
+  leftmargin=2ex
+}
+\frenchspacing
+\newlength\origparindent
+\newlength\abilitiespad
+\setlength{\abilitiespad}{1ex}
+\newlength\sectionpad
+\setlength{\sectionpad}{2ex}
+\setlength{\columnsep}{0.375in}
+
+\definecolor{grey}{rgb}{0.61, 0.61, 0.61}
+\definecolor{monster}{rgb}{0.61, 0.18, 0.11}
+\definecolor{blood}{rgb}{0.34, 0.09, 0.05}
+\colorlet{stats}{black}
+\colorlet{rules}{grey}
+% For color output, uncomment
+% \colorlet{stats}{blood}
+% \colorlet{rules}{monster}
+
+\newenvironment{statblock}{
+  \setlength{\origparindent}{\parindent}
+  \setlength{\parindent}{0pt}
+  \begin{figure}
+  \begin{flushleft}
+}{
+  \end{flushleft}
+  \end{figure}
+  \setlength{\parindent}{\origparindent}
+}
+
+\newenvironment{abilities}{
+  \wedgerule
+  \addvspace{\abilitiespad}
+  \begin{tabu} to 0.95\linewidth {XXXXXX}
+    \rowfont[c]\bfseries
+    STR & DEX & CON & INT & WIS & CHA \\
+    \rowfont[c]\normalfont
+}{
+  \end {tabu} \\
+  \addvspace{\abilitiespad}
+  \wedgerule
+}
+
+\newcommand{\attribute}[2]{
+  \begin{hangparas}{2ex}{1}
+    \textbf{#1} #2
+  \end{hangparas}
+}
+
+\newcommand{\action}[2]{
+  \addvspace{0.75\sectionpad}
+  \textbf{\textit{#1.}} #2
+}
+
+\newcommand{\attack}[8]{
+  \addvspace{0.75\sectionpad}
+  \textbf{\textit{#1.}}{
+    \textit{#2:} #3 to hit, #4, #5.
+    \textit{Hit:} #6 #7 damage\IfEq{nil}{#8}{.}{#8}
+  }
+}
+
+\newcommand{\group}[1]{
+  \addvspace{\sectionpad}
+  \textsc{\textsf{\Large #1}} \\
+  \vspace{-1\sectionpad}
+  \sectionrule
+  \vspace{-2\sectionpad}
+}
+
+\newcommand{\sectionrule}{
+  \begin{tikzpicture}
+    \filldraw[stats] (0,0) -- (1\linewidth,0);
+  \end{tikzpicture}
+}
+
+\newcommand{\wedgerule}{
+  \begin{tikzpicture}
+    \fill[rules]
+    (0,0) -- (1\linewidth,0.0575) -- (0,0.115) -- cycle;
+  \end{tikzpicture} \\
+}
+
+
+\begin{document}
+
+\begin{statblock}
+  \textsc{\LARGE\rmfamily\selectfont Sample Monster} \\
+  \textit{\small Medium humanoid (any race), any alignment} \\
+  \wedgerule
+  \attribute{Armor Class}{12 (natural armor)}
+  \attribute{Hit Points}{9 (2d6 + 2)}
+  \attribute{Speed}{20 ft., burrow 10 ft., fly 60 ft. (hover)}
+  \begin{abilities}
+    18~(+4) &
+    17~(+3) &
+    16~(+3) &
+    15~(+2) &
+    14~(+2) &
+    13~(+1) \\
+  \end{abilities}
+  \attribute{Saving Throws}{Str +6, Cha +3}
+  \attribute{Skills}{Deception +6}
+  \attribute{Damage Vulnerabilities}{cold, radiant}
+  \attribute{Damage Resistances}{fire; slashing, piercing, and bludgeoning from non-magical weapons}
+  \attribute{Damage Immunities}{acid, poison, necrotic}
+  \attribute{Condition Immunities}{petrified}
+  \attribute{Senses}{passive Perception 14}
+  \attribute{Languages}{any one language (usually Common)}
+  \attribute{Challenge}{1/8 (25 XP)}
+  \wedgerule
+  \action{Spellcasting}{The sample monster is a 1st-level spellcaster. Its spellcasting ability is Wisdom (spell save DC 12, +4 to hit with spell attacks). The sample monster has the following cleric spells prepared:
+
+\begin{description}
+\item[Cantrips (at will):] {\fontshape{it}\selectfont light}, {\fontshape{it}\selectfont sacred flame}, {\fontshape{it}\selectfont thaumaturgy}
+\item[1st level (3 slots):] {\fontshape{it}\selectfont bless}, {\fontshape{it}\selectfont cure wounds}, {\fontshape{it}\selectfont sanctuary}
+\end{description}}
+
+\group{Actions} \\
+
+\attack{Scimitar}
+       {Melee Weapon Attack}
+       {+3}
+       {reach 5 ft.}
+       {one target}
+       {4~(1d6 + 1)}
+       {slashing}
+       {nil}
+
+\attack{Dagger}
+       {Melee or Ranged Weapon Attack}
+       {+3}
+       {reach 5 ft. or range 20/60 ft.}
+       {one target}
+       {3~(1d4 + 1)}
+       {piercing}
+       {plus 2 necrotic damage.}
+
+\group{Reactions} \\
+\action{Parry}{The sample monster adds 2 to its AC against one melee attack that would hit it. To do so, the sample monster must see the attacker and be wielding a melee weapon.} \\
+\group{Legendary Actions} \\
+\addvspace{0.75\sectionpad}
+The sample monster can take 3 legendary actions, choosing from the options below. Only one legendary action option can be used at a time and only at the end of another creature's turn. The sample monster regains spent legendary actions at the start of its turn. \\
+\action{Teleport}{The sample monster magically teleports, along with any equipment it is wearing or carrying, up to 120 feet to an unoccupied space it can see.}
+\end{statblock}
+
+\end {document}
