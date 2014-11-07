@@ -4,7 +4,7 @@
  :type "humanoid (any race)"
  :alignment "any alignment"
  :ac 12
- :ac-details "armor details"
+ :ac-details "natural armor"
  :hp "2d6 + 2"
  :movements [
              {
@@ -23,20 +23,17 @@
              ]
  :abilities {
              :str 18
-             :dex 18
-             :con 18
-             :int 18
-             :wis 18
-             :cha 18
+             :dex 17
+             :con 16
+             :int 15
+             :wis 14
+             :cha 13
              }
  :saving-throws [
                  {:ability "str" :modifier 6}
-                 {:ability "cha" :modifier 6}
+                 {:ability "cha" :modifier 3}
                  ]
- :skills [
-          {:name "deception" :modifier 6}
-          ]
- :condition-immunities ["petrified"]
+ :skills [{:name "deception" :modifier 6}]
  :damage-vulnerabilities ["cold" "radiant"]
  :damage-resistances [
                       "fire"
@@ -44,10 +41,21 @@
                        :types ["slashing" "piercing" "bludgeoning"]}
                       ]
  :damage-immunities ["acid" "poison" "necrotic"]
+ :condition-immunities ["petrified"]
  :senses ["passive Perception 14"]
  :languages ["any one language (usually Common)"]
  :challenge 1/8
  :xp 25
+ :traits [
+          {:name "Spellcasting"
+           :text "The sample monster is a 1st-level spellcaster. Its spellcasting ability is Wisdom (spell save DC 12, +4 to hit with spell attacks). The sample monster has the following cleric spells prepared:
+
+Cantrips (at will):
+: *light*, *sacred flame*, *thaumaturgy*
+
+1st level (3 slots):
+: *bless*, *cure wounds*, *sanctuary*"}
+          ]
  :actions [
            {
             :name "scimitar"
@@ -59,15 +67,6 @@
             :damage-type "slashing"
             }
            {
-            :name "light crossbow"
-            :attack-type "Ranged Weapon Attack"
-            :to-hit 3
-            :range [80 320]
-            :target "one target"
-            :hit "1d8 + 1"
-            :damage-type "piercing"
-            }
-           {
             :name "dagger"
             :attack-type "Melee or Ranged Weapon Attack"
             :to-hit 3
@@ -76,20 +75,16 @@
             :target "one target"
             :hit "1d4 + 1"
             :damage-type "piercing"
+            :damage-details "plus 2 necrotic damage."
             }
            ]
- :legendary-actions {:intro "This is a blurb."
-                     :actions [{:name "Rawr" :text "This is legendary!"}]}
  :reactions [
              {
-              :name "reactive ability \\#1"
-              :text "This is an example reaction."
+              :name "Parry"
+              :text "The sample monster adds 2 to its AC against one melee attack that would hit it. To do so, the sample monster must see the attacker and be wielding a melee weapon."
               }
              ]
- :features [
-            {
-             :name "Keen smell"
-             :text "This is where I talk about keen smell."
-             }
-            ]
+ :legendary-actions {:intro "The sample monster can take 3 legendary actions, choosing from the options below. Only one legendary action option can be used at a time and only at the end of another creature's turn. The sample monster regains spent legendary actions at the start of its turn."
+                     :actions [{:name "Teleport"
+                                :text "The sample monster magically teleports, along with any equipment it is wearing or carrying, up to 120 feet to an unoccupied space it can see."}]}
  }

@@ -38,8 +38,8 @@
   \attribute{Languages}{<{ m.languages|list-or:"--" }>}
   \attribute{Challenge}{<{ m.challenge }> (<{ m.xp }> XP)}
   \wedgerule
-  <% for feature in m.features %>
-  \action{<{ feature.name|title }>}{<{ feature.text|markdown }>}
+  <% for trait in m.traits %>
+  \action{<{ trait.name|title }>}{<{ trait.text|markdown }>}
   <% endfor %>
   \group{Actions}
   <% for action in m.actions %>
