@@ -5,7 +5,7 @@
  :alignment "" ;; e.g. chaotic neutral
  :ac 0 ;;
  :ac-details "" ;; e.g. leather armor
- :hp "" ;; e.g. 2d6 + 2
+ :hp "" ;; e.g. 2d6 + 2, the average die roll will be calculated
  :movements [
              {
               :name "base" ;; base is required
@@ -32,28 +32,29 @@
  :skills [
           ;;{:name "deception" :modifier 6}
           ]
- :condition-immunities []
  :damage-vulnerabilities []
- ;; damage-resistances can have multiple lists, as shown below
+ ;; damage-resistances can have multiple lists. The example below will
+ ;; generate:
+ ;;    fire; slashing, piercing, and bludgeoning from non-magical weapons
  :damage-resistances [
                       ;; "fire"
                       ;; {:details "from non-magical weapons"
                       ;;  :types ["slashing" "piercing" "bludgeoning"]}
                       ]
  :damage-immunities []
- :senses ["passive Perception 0"]
+ :condition-immunities []
+ :senses [] ;; e.g. "passive Perception 10"
  :languages []
  :challenge 0
  :xp 0
- :features [
-            ;; {
-            ;;  :name "Keen smell"
-            ;;  :text "This is where I talk about keen smell."
-            ;;  }
-            ]
+ :traits [
+          ;; {
+          ;;  :name "Keen smell"
+          ;;  :text "This is where I talk about keen smell."
+          ;;  }
+          ]
  :actions [
-           ;; Typically, if :text is filled out, then desc, to-hit, reach, etc
-           ;; are not.
+           ;; If :text is filled out, then desc, to-hit, reach, etc are not.
            ;; {
            ;;  :name "scimitar"
            ;;  :text ""
@@ -65,9 +66,11 @@
            ;;  :damage-type "slashing"
            ;;  }
            ]
- :legendary-actions [
-                     ;; {:name "Rawr" :text "This is legendary!"}
-                     ]
+ :legendary-actions {:intro "" ;; how many points, etc
+                     :actions [
+                               ;; {:name "Rawr" :text "This is legendary!"}
+                               ]
+                     }
  :reactions [
              ;; {
              ;;  :name "reactive ability #1"
