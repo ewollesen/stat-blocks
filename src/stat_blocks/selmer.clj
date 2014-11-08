@@ -129,5 +129,7 @@
     (add-filters)
     (spit (str (str/trim (:output opts)) ".tex")
           (print-str (sp/render-file "block.tex.selmer"
-                                     {:monsters ctxs :color? false}
+                                     {:monsters ctxs
+                                      :color? (:color opts)
+                                      :png? false}
                                      selmer-options)))))

@@ -27,6 +27,7 @@
 \newlength\sectionpad
 \setlength{\sectionpad}{2ex}
 \setlength{\columnsep}{0.375in}
+<% if png? %>\pagestyle{empty}<% endif %>
 
 \definecolor{grey}{rgb}{0.61, 0.61, 0.61}
 \definecolor{monster}{rgb}{0.61, 0.18, 0.11}
