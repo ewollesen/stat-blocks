@@ -1,12 +1,8 @@
 (ns stat-blocks.core
-  (:use clostache.parser
-        [markdown.core :only [md-to-html-string]])
-  (:require [clojure.edn :as edn]
-            [clojure.java.io :as io]
-            [clojure.string :as str]
+  (:require [clojure.string :as str]
             [clojure.tools.cli :refer [parse-opts]]
 
-            [stat-blocks.selmer :as latex]
+            [stat-blocks.renderer :refer [render]]
             [stat-blocks.loader :as loader])
   (:gen-class))
 
@@ -44,7 +40,7 @@
 
 (defn try-render [options filenames]
   (try
-    (latex/render options (loader/load filenames))
+    (render options (loader/load filenames))
     0
     (catch Exception e 1)))
 
