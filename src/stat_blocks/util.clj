@@ -1,8 +1,5 @@
 (ns stat-blocks.util
-  (:use [markdown.core :only [md-to-html-string]])
-  (:require [clojure.edn :as edn]
-            [clojure.java.io :as io]
-            [clojure.string :as str]))
+  (:require [clojure.string :as str]))
 
 
 (def die-roll-re #"(\d+)?d(\d+)(?:\s*(\+|-)\s*(\d+))?")
@@ -23,15 +20,6 @@
       1 (first pieces)
       2 (str/join " and " pieces)
       (str/join ", and " [(str/join ", " head) tail]))))
-
-(defn loader [name]
-  (try
-    (with-open [r (-> (str name ".edn")
-                     io/resource
-                     io/reader
-                     java.io.PushbackReader.)]
-      (edn/read r))
-    (catch Exception e (println "Error loading edn file:" (str name ".edn")))))
 
 (defn mean-roll [text]
   (let [[_ rolls sides sign mod] (re-find die-roll-re text)

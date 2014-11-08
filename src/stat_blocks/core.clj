@@ -4,11 +4,10 @@
   (:require [clojure.edn :as edn]
             [clojure.java.io :as io]
             [clojure.string :as str]
-
             [clojure.tools.cli :refer [parse-opts]]
 
             [stat-blocks.selmer :as latex]
-            [stat-blocks.util :as util])
+            [stat-blocks.loader :as loader])
   (:gen-class))
 
 
@@ -20,6 +19,7 @@
    ;; [nil "--png" "Generates PNG output, one file per stat-block"]
    ;; [nil "--pdf" "Generates PDF output, one file for all stat-blocks" :default true]
    ["-h" "--help"]])
+(def error-no-files "You must provide at least one monster datafile.")
 
 
 (defn exit [value msg]
@@ -44,11 +44,9 @@
 
 (defn try-render [options arguments]
   (try
-    (latex/render options arguments)
+    (latex/render options (loader/load arguments))
     0
     (catch Exception e 1)))
-
-(def error-no-files "You must provide at least one monster datafile.")
 
 (defn -main [& args]
   (let [{:keys [options arguments errors summary]} (parse-opts args cli-options)]

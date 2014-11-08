@@ -34,18 +34,13 @@
                 (str "range " (str/join "/" (:range action)) " ft."))]
     (str/join " or " (filter identity [reach range]))))
 
-(defn merge-reach-and-range [context]
+(defn merge-reach-and-range [monster]
   (let [f #(merge % {:reach-and-range (render-reach-and-range %)})]
-    (merge context {:actions (map f (:actions context))})))
+    (merge monster {:actions (map f (:actions monster))})))
 
-(defn merge-context-utils [context]
-  (-> context
+(defn merge-monster-utils [monster]
+  (-> monster
       merge-reach-and-range))
-
-(defn context [name]
-  (-> name
-      util/loader
-      merge-context-utils))
 
 (defn simple-list [label modifier]
   (fn [map]
@@ -122,14 +117,12 @@
   (sf/add-filter! :skills-list skills-list)
   (sf/add-filter! :damage-resistances-list damage-resistances-list))
 
-(defn render [opts names]
+(defn render [opts monsters]
   (sp/cache-off!)
-  (let [sorted (sort names)
-        ctxs (map context sorted)]
-    (add-filters)
-    (spit (str (str/trim (:output opts)) ".tex")
-          (print-str (sp/render-file "block.tex.selmer"
-                                     {:monsters ctxs
-                                      :color? (:color opts)
-                                      :png? false}
-                                     selmer-options)))))
+  (add-filters)
+  (spit (str (str/trim (:output opts)) ".tex")
+        (print-str (sp/render-file "block.tex.selmer"
+                                   {:monsters monsters
+                                    :color? (:color opts)
+                                    :png? false}
+                                   selmer-options))))
