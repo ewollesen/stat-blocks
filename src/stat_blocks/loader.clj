@@ -29,8 +29,12 @@
   (let [ext (str/lower-case (extname filename))]
     (cond (= ext "json") (load-json filename)
           (= ext "edn") (load-edn filename)
-          :default (do (println "Unable to load:" filename)
-                       {}))))
+          :default (do (println "Don't know how to load:" filename)
+                       nil))))
 
 (defn load [filenames]
-  (map load-filename filenames))
+  (reduce (fn [m i] (if-let [data (load-filename i)]
+                      (conj m data)
+                      m))
+          []
+          filenames))

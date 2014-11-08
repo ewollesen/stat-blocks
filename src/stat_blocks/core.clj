@@ -42,9 +42,9 @@
   (str "The following errors occurred while parsing your command:\n\n"
        (str/join \newline errors)))
 
-(defn try-render [options arguments]
+(defn try-render [options filenames]
   (try
-    (latex/render options (loader/load arguments))
+    (latex/render options (loader/load filenames))
     0
     (catch Exception e 1)))
 
