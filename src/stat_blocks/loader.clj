@@ -1,9 +1,17 @@
 (ns stat-blocks.loader
   (:require [clojure.java.io :as io]
             [clojure.edn :as edn]
+            [clojure.string :as str]
             [clojure.data.json :as json]))
 
-(defn load-filename [loader filename]
+
+(def ext-re #"\.([^\.]+)$")
+
+
+(defn extname [filename]
+  (last (re-find ext-re filename)))
+
+(defn try-load [loader filename]
   (try
     (with-open [r (-> filename
                       io/reader
@@ -12,10 +20,17 @@
     (catch Exception e (println "Error loading file:" filename))))
 
 (defn load-json [filename]
-  (load-filename (fn [x] (json/read x :key-fn keyword)) filename))
+  (try-load (fn [x] (json/read x :key-fn keyword)) filename))
 
 (defn load-edn [filename]
-  (load-filename edn/read filename))
+  (try-load edn/read filename))
+
+(defn load-filename [filename]
+  (let [ext (str/lower-case (extname filename))]
+    (cond (= ext "json") (load-json filename)
+          (= ext "edn") (load-edn filename)
+          :default (do (println "Unable to load:" filename)
+                       {}))))
 
 (defn load [filenames]
-  (map load-json filenames))
+  (map load-filename filenames))
