@@ -8,6 +8,7 @@
                  [selmer "0.7.2"]
                  [markdown-clj "0.9.55"]
                  [org.clojure/tools.cli "0.3.1"]
+                 [org.clojure/data.json "0.2.5"]
                  [com.taoensso/timbre "3.3.1"]]
   :main ^:skip-aot stat-blocks.core
   :target-path "target/%s"
