@@ -3,14 +3,13 @@
             [clojure.edn :as edn]))
 
 
-(defn load-edn [name]
+(defn load-edn [filename]
   (try
-    (with-open [r (-> (str name ".edn")
-                     io/resource
-                     io/reader
-                     java.io.PushbackReader.)]
+    (with-open [r (-> filename
+                      io/reader
+                      java.io.PushbackReader.)]
       (edn/read r))
-    (catch Exception e (println "Error loading edn file:" (str name ".edn")))))
+    (catch Exception e (println "Error loading edn file:" filename))))
 
-(defn load [names]
-  (map load-edn names))
+(defn load [filenames]
+  (map load-edn filenames))
