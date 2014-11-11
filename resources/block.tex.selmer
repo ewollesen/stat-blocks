@@ -1,3 +1,4 @@
+%% -*- LaTeX -*-
 <% extends "stat-block.tex.selmer" %>
 <% block stats %>
 <% for m in monsters %>

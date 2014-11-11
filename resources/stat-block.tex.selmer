@@ -1,7 +1,11 @@
 %% -*- latex -*-
 %% <% safe %>
+<% if png? %>
+\documentclass[multi=true, preview=true, convert, border=0.125in,
+  letterpaper, 10pt, twocolumn]{standalone}
+<% else %>
 \documentclass[letterpaper, 10pt, twocolumn]{article}
-
+<% endif %>
 \usepackage{enumitem}
 \usepackage[top=0.75in, right=0.6875in, bottom=0.75in, left=0.6875in]{geometry}
 \usepackage{hanging}
@@ -27,7 +31,6 @@
 \newlength\sectionpad
 \setlength{\sectionpad}{2ex}
 \setlength{\columnsep}{0.375in}
-<% if png? %>\pagestyle{empty}<% endif %>
 
 \definecolor{grey}{rgb}{0.61, 0.61, 0.61}
 \definecolor{monster}{rgb}{0.61, 0.18, 0.11}
@@ -50,6 +53,8 @@
   \end{figure}
   \setlength{\parindent}{\origparindent}
 }
+
+<% if png? %>\standaloneenv{statblock}<% endif %>
 
 \newenvironment{abilities}{
   \wedgerule

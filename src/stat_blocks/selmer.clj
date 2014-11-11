@@ -117,7 +117,12 @@
   (sf/add-filter! :skills-list skills-list)
   (sf/add-filter! :damage-resistances-list damage-resistances-list))
 
-(defn render [opts monsters]
+(defn render [template context]
+  (sp/cache-off!)
+  (add-filters)
+  (sp/render-file template context selmer-options))
+
+(defn render2 [opts monsters]
   (sp/cache-off!)
   (add-filters)
   (spit (str (str/trim (:output opts)) ".tex")

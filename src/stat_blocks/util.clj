@@ -3,11 +3,20 @@
 
 
 (def die-roll-re #"(\d+)?d(\d+)(?:\s*(\+|-)\s*(\d+))?")
+(def ext-re #"\.([^\.]+)$")
 (def format-mod (partial format "%+d"))
 (def range-re #"([0-9]+)/([0-9]+)")
 (def reach-or-range-re #"([0-9]+)/([0-9]+/[0-9]+/)?")
 (def str->int (comp #(Integer. %) str/trim str))
 
+
+(defn extname [filename]
+  (last (re-find ext-re filename)))
+
+(defn with-ext [ext filename]
+  (str/replace filename
+               (re-pattern (str "\\." (extname filename) "$"))
+               (str "." ext)))
 
 (defn calc-ability-mod [score]
   (int (/ (- score 10) 2)))

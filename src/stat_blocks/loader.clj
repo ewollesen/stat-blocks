@@ -2,14 +2,10 @@
   (:require [clojure.java.io :as io]
             [clojure.edn :as edn]
             [clojure.string :as str]
-            [clojure.data.json :as json]))
+            [clojure.data.json :as json]
 
+            [stat-blocks.util :as util]))
 
-(def ext-re #"\.([^\.]+)$")
-
-
-(defn extname [filename]
-  (last (re-find ext-re filename)))
 
 (defn try-load [loader filename]
   (try
@@ -26,7 +22,7 @@
   (try-load edn/read filename))
 
 (defn load-filename [filename]
-  (let [ext (str/lower-case (extname filename))]
+  (let [ext (str/lower-case (util/extname filename))]
     (cond (= ext "json") (load-json filename)
           (= ext "edn") (load-edn filename)
           :default (do (println "Don't know how to load:" filename)

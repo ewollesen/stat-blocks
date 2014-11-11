@@ -2,18 +2,29 @@
   (:require [clojure.string :as str]
             [clojure.tools.cli :refer [parse-opts]]
 
-            [stat-blocks.renderer :refer [render]]
+            [stat-blocks.renderer :refer [render render-opts]]
             [stat-blocks.loader :as loader])
   (:gen-class))
 
+
+;; (defn toggler [format]
+;;   (fn [m _ _]
+;;     (-> m
+;;         (dissoc :pdf)
+;;         (dissoc :png)
+;;         (assoc :format format))))
 
 (def cli-options
   [["-o" "--output FILENAME" "Output filename (w/o extension)"
     :default "monsters"
     :parse-fn str]
    ["-c" "--color" "Generates full color output"]
-   ;; [nil "--png" "Generates PNG output, one file per stat-block"]
-   ;; [nil "--pdf" "Generates PDF output, one file for all stat-blocks" :default true]
+   ;; ["-f" "--format" "Select the output format, pdf or png."
+   ;;  :default "pdf"]
+   [nil "--png" "Generates PNG output, one file per stat-block"
+    :default false]
+   [nil "--pdf" "Generates PDF output, one file for all stat-blocks"
+    :default true]
    ["-h" "--help"]])
 (def error-no-files "You must provide at least one monster datafile.")
 
