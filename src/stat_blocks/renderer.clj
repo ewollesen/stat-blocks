@@ -28,4 +28,4 @@
     (spit filename
           (selmer/render latex-template
                          (assoc opts :monsters monsters)))
-    (my-sh "pdflatex" "-shell-escape" filename)))
+    (my-sh "pdflatex" "-interaction=nonstopmode" "-shell-escape" filename)))
