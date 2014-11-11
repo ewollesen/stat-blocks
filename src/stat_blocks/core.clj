@@ -7,13 +7,6 @@
   (:gen-class))
 
 
-;; (defn toggler [format]
-;;   (fn [m _ _]
-;;     (-> m
-;;         (dissoc :pdf)
-;;         (dissoc :png)
-;;         (assoc :format format))))
-
 (def cli-options
   [["-o" "--output FILENAME" "Output filename (w/o extension)"
     :default "monsters"
