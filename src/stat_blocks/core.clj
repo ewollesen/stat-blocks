@@ -12,8 +12,6 @@
     :default "monsters"
     :parse-fn str]
    ["-c" "--color" "Generates full color output"]
-   ;; ["-f" "--format" "Select the output format, pdf or png."
-   ;;  :default "pdf"]
    [nil "--png" "Generates PNG output, one file per stat-block"
     :default false]
    [nil "--pdf" "Generates PDF output, one file for all stat-blocks"
