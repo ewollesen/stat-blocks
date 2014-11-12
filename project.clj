@@ -12,5 +12,6 @@
                  [com.taoensso/timbre "3.3.1"]
                  [me.raynes/fs "1.4.4"]]
   :main ^:skip-aot stat-blocks.core
+  :bin {:name "stat-blocks"}
   :target-path "target/%s"
   :profiles {:uberjar {:aot :all}})
