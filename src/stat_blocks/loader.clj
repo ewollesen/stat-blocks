@@ -28,7 +28,7 @@
           :default (do (println "Don't know how to load:" filename)
                        nil))))
 
-(defn load [filenames]
+(defn load-filenames [filenames]
   (reduce (fn [m i] (if-let [data (load-filename i)]
                       (conj m data)
                       m))

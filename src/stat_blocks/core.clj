@@ -44,7 +44,7 @@
 
 (defn try-render [options filenames]
   (try
-    (render options (loader/load filenames))
+    (render options (loader/load-filenames filenames))
     0
     (catch Exception e 1)))
 
