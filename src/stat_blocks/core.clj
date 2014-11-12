@@ -2,7 +2,7 @@
   (:require [clojure.string :as str]
             [clojure.tools.cli :refer [parse-opts]]
 
-            [stat-blocks.renderer :refer [render render-opts]]
+            [stat-blocks.renderer :refer [render]]
             [stat-blocks.loader :as loader])
   (:gen-class))
 

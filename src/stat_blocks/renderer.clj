@@ -40,6 +40,6 @@
     (my-sh "pdflatex"
            "-interaction=nonstopmode"
            "-shell-escape"
-           (.getAbsolutePath tex-file)
-           :dir (.getAbsolutePath work-dir))
-    (move-output work-dir fs/*cwd*)))
+           (fs/base-name tex-file)
+           :dir work-dir)
+    (map #(.getAbsolutePath %) (fs/glob work-dir "*.{png,pdf}"))))
