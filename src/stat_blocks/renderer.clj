@@ -39,7 +39,13 @@
                          (assoc opts :monsters monsters)))
     (my-sh "pdflatex"
            "-interaction=nonstopmode"
-           "-shell-escape"
            (fs/base-name tex-file)
            :dir work-dir)
+    (when (:png? opts)
+      (my-sh "convert"
+             "-quality" "90"
+             "-density" "300x300"
+             (with-ext "pdf" (fs/base-name tex-file))
+             "monsters-%d.png"
+             :dir work-dir))
     (map #(.getAbsolutePath %) (fs/glob work-dir "*.{png,pdf}"))))
