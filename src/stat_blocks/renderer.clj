@@ -46,6 +46,6 @@
              "-quality" "90"
              "-density" "300x300"
              (with-ext "pdf" (fs/base-name tex-file))
-             "monsters-%d.png"
+             (str (:output raw-options) "-%d.png")
              :dir work-dir))
     (map #(.getAbsolutePath %) (fs/glob work-dir "*.{png,pdf}"))))

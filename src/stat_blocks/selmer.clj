@@ -35,12 +35,14 @@
     (str/join " or " (filter identity [reach range]))))
 
 (defn merge-reach-and-range [monster]
-  (let [f #(merge % {:reach-and-range (render-reach-and-range %)})]
-    (merge monster {:actions (map f (:actions monster))})))
+  (let [f #(assoc % :reach-and-range (render-reach-and-range %))]
+    (do
+      (assoc monster :actions (mapv f (:actions monster))))))
 
-(defn merge-monster-utils [monster]
-  (-> monster
-      merge-reach-and-range))
+(defn merge-monster-utils [monsters]
+  (map (fn [monster] (-> monster
+                         merge-reach-and-range))
+       monsters))
 
 (defn simple-list [label modifier]
   (fn [map]
@@ -102,32 +104,44 @@
         str/trim
         fix-emph)))
 
+(defn escape-latex-special-char [[all specific]]
+  (cond
+   (= specific "\\") "\\textbackslash{}"
+   (= specific "^") "\\textasciicircum{}"
+   (= specific "~") "\\textasciitilde{}"
+   true (str "\\" specific)))
+
+(defn sanitize-latex [text]
+  (str/replace (str text) #"([\\\^\~{}\$\&\#_%])" escape-latex-special-char))
+
+(defn latexify [target]
+  (when (re-find #"tilde" (str target))
+    (println "\nlatexify:" target))
+
+  (cond
+   (string? target) (sanitize-latex target)
+   (map? target) (into {} (for [[k v] target] [k (latexify v)]))
+   (vector? target) (mapv latexify target)
+   :else target))
+
 (defn add-filters []
-  (sf/add-filter! :title title)
-  (sf/add-filter! :blank? str/blank?)
-  (sf/add-filter! :present? #(not (str/blank? %)))
-  (sf/add-filter! :markdown kramdown)
-  (sf/add-filter! :format str)
-  (sf/add-filter! :list-or list-or)
-  (sf/add-filter! :mean-roll util/mean-roll)
   (sf/add-filter! :ability-mod calc-ability-mod)
+  (sf/add-filter! :blank? str/blank?)
+  (sf/add-filter! :damage-resistances-list damage-resistances-list)
+  (sf/add-filter! :format str)
+  (sf/add-filter! :latex sanitize-latex)
+  (sf/add-filter! :list-or list-or)
+  (sf/add-filter! :markdown kramdown)
+  (sf/add-filter! :mean-roll util/mean-roll)
   (sf/add-filter! :mod format-mod)
-  (sf/add-filter! :speed speed)
+  (sf/add-filter! :present? #(not (str/blank? %)))
   (sf/add-filter! :saves-list saves-list)
   (sf/add-filter! :skills-list skills-list)
-  (sf/add-filter! :damage-resistances-list damage-resistances-list))
+  (sf/add-filter! :speed speed)
+  (sf/add-filter! :title title))
 
 (defn render [template context]
   (sp/cache-off!)
   (add-filters)
-  (sp/render-file template context selmer-options))
-
-(defn render2 [opts monsters]
-  (sp/cache-off!)
-  (add-filters)
-  (spit (str (str/trim (:output opts)) ".tex")
-        (print-str (sp/render-file "block.tex.selmer"
-                                   {:monsters monsters
-                                    :color? (:color opts)
-                                    :png? false}
-                                   selmer-options))))
+  (let [monsters (merge-monster-utils (:monsters context))]
+    (sp/render-file template (assoc context :monsters monsters) selmer-options)))

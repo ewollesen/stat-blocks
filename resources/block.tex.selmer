@@ -3,72 +3,72 @@
 <% block stats %>
 <% for m in monsters %>
 \begin{statblock}
-  \textsc{\LARGE\rmfamily\selectfont <{ m.name|title }>} \\
-  \textit{\small <{ m.size|capitalize }> <{ m.type }>, <{ m.alignment }>} \\
+  \textsc{\LARGE\rmfamily\selectfont <{ m.name|title|latex }>} \\
+  \textit{\small <{ m.size|capitalize|latex }> <{ m.type|latex }>, <{ m.alignment|latex }>} \\
   \wedgerule
-  \attribute{Armor Class}{<{ m.ac }><% if m.ac-details %> (<{ m.ac-details|markdown }>)<% endif %>}
-  \attribute{Hit Points}{<{ m.hp|mean-roll }> (<{ m.hp }>)}
-  \attribute{Speed}{<{ m.movements|speed }>}
+  \attribute{Armor Class}{<{ m.ac|latex }><% if m.ac-details %> (<{ m.ac-details|markdown }>)<% endif %>}
+  \attribute{Hit Points}{<{ m.hp|mean-roll|latex }> (<{ m.hp|latex }>)}
+  \attribute{Speed}{<{ m.movements|speed|latex }>}
   \begin{abilities}
-    <{ m.abilities.str }>~(<{ m.abilities.str|ability-mod }>) &
-    <{ m.abilities.dex }>~(<{ m.abilities.dex|ability-mod }>) &
-    <{ m.abilities.con }>~(<{ m.abilities.con|ability-mod }>) &
-    <{ m.abilities.int }>~(<{ m.abilities.int|ability-mod }>) &
-    <{ m.abilities.wis }>~(<{ m.abilities.wis|ability-mod }>) &
-    <{ m.abilities.cha }>~(<{ m.abilities.cha|ability-mod }>) \\
+    <{ m.abilities.str|latex }>~(<{ m.abilities.str|ability-mod|latex }>) &
+    <{ m.abilities.dex|latex }>~(<{ m.abilities.dex|ability-mod|latex }>) &
+    <{ m.abilities.con|latex }>~(<{ m.abilities.con|ability-mod|latex }>) &
+    <{ m.abilities.int|latex }>~(<{ m.abilities.int|ability-mod|latex }>) &
+    <{ m.abilities.wis|latex }>~(<{ m.abilities.wis|ability-mod|latex }>) &
+    <{ m.abilities.cha|latex }>~(<{ m.abilities.cha|ability-mod|latex }>) \\
   \end{abilities}
   <% if m.saving-throws %>
-  \attribute{Saving Throws}{<{ m.saving-throws|saves-list }>}
+  \attribute{Saving Throws}{<{ m.saving-throws|saves-list|latex }>}
   <% endif %>
   <% if m.skills %>
-  \attribute{Skills}{<{ m.skills|skills-list }>}
+  \attribute{Skills}{<{ m.skills|skills-list|latex }>}
   <% endif %>
   <% if m.damage-vulnerabilities %>
-  \attribute{Damage Vulnerabilities}{<{ m.damage-vulnerabilities|join:", " }>}
+  \attribute{Damage Vulnerabilities}{<{ m.damage-vulnerabilities|join:", "|latex }>}
   <% endif %>
   <% if m.damage-resistances %>
-  \attribute{Damage Resistances}{<{ m.damage-resistances|damage-resistances-list }>}
+  \attribute{Damage Resistances}{<{ m.damage-resistances|damage-resistances-list|latex }>}
   <% endif %>
   <% if m.damage-immunities %>
-  \attribute{Damage Immunities}{<{ m.damage-immunities|join:", " }>}
+  \attribute{Damage Immunities}{<{ m.damage-immunities|join:", "|latex }>}
   <% endif %>
   <% if m.condition-immunities %>
-  \attribute{Condition Immunities}{<{ m.condition-immunities|join:", " }>}
+  \attribute{Condition Immunities}{<{ m.condition-immunities|join:", "|latex }>}
   <% endif %>
-  \attribute{Senses}{<{ m.senses|join:", " }>}
-  \attribute{Languages}{<{ m.languages|list-or:"--" }>}
-  \attribute{Challenge}{<{ m.challenge }> (<{ m.xp }> XP)}
+  \attribute{Senses}{<{ m.senses|join:", "|latex }>}
+  \attribute{Languages}{<{ m.languages|list-or:"--"|latex }>}
+  \attribute{Challenge}{<{ m.challenge|latex }> (<{ m.xp|latex }> XP)}
   \wedgerule
   <% for trait in m.traits %>
-  \action{<{ trait.name|title }>}{<{ trait.text|markdown }>}
+  \action{<{ trait.name|title|latex }>}{<{ trait.text|markdown }>}
   <% endfor %>
   \group{Actions}
   <% for action in m.actions %>
   <% if action.text %>
-  \action{<{ action.name|title }>}{<{ action.text }>}
+  \action{<{ action.name|title|latex }>}{<{ action.text|latex }>}
   <% else %>
-  \attack{<{ action.name|title }>}
-         {<{ action.attack-type }>}
-         {<{ action.to-hit|mod }>}
-         {<{ action.reach-and-range }>}
-         {<{ action.target }>}
-         {<{ action.hit|mean-roll }>~(<{ action.hit }>)}
-         {<{ action.damage-type }>}
+  \attack{<{ action.name|title|latex }>}
+         {<{ action.attack-type|latex }>}
+         {<{ action.to-hit|mod|latex }>}
+         {<{ action.reach-and-range|latex }>}
+         {<{ action.target|latex }>}
+         {<{ action.hit|mean-roll|latex }>~(<{ action.hit|latex }>)}
+         {<{ action.damage-type|latex }>}
          {<% if action.damage-details %><{ action.damage-details|markdown }><% else %>nil<% endif %>}
   <% endif %>
   <% endfor %>
   <% if m.reactions %>
   \group{Reactions} \\
   <% for reaction in m.reactions %>
-  \action{<{ reaction.name|title }>}{<{ reaction.text|markdown }>}
+  \action{<{ reaction.name|title|latex }>}{<{ reaction.text|markdown }>}
   <% endfor %>
   <% endif %>
   <% if m.legendary-actions.actions %>
   \group{Legendary Actions} \\
   \addvspace{0.75\sectionpad}
-  <{ m.legendary-actions.intro }> \\
+  <{ m.legendary-actions.intro|latex }> \\
   <% for action in m.legendary-actions.actions %>
-  \action{<{ action.name|title }>}{<{ action.text|markdown }>}
+  \action{<{ action.name|title|latex }>}{<{ action.text|markdown }>}
   <% endfor %>
   <% endif %>
 \end{statblock}

@@ -17,7 +17,7 @@
     (let [monsters (if (empty? params)
                     (load-filenames ["resources/sample.edn"])
                     [params])
-          name (str/replace (:name (first monsters)) #"[\W\.]+" "-")
+          name (str/replace (:name (first monsters)) #"[\W\.]+" "")
           http-opts {:png true :output name}
           output (render http-opts monsters)
           filename (first (filter #(.endsWith % "-0.png") output))]
