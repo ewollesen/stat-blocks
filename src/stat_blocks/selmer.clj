@@ -30,7 +30,7 @@
 (defn render-reach-and-range [action]
   (let [reach (when (contains? action :reach)
                 (str "reach " (:reach action) " ft."))
-        range (when (contains? action :range)
+        range (when (< 0 (count (get-in action [:range])))
                 (str "range " (str/join "/" (:range action)) " ft."))]
     (str/join " or " (filter identity [reach range]))))
 
@@ -115,9 +115,6 @@
   (str/replace (str text) #"([\\\^\~{}\$\&\#_%])" escape-latex-special-char))
 
 (defn latexify [target]
-  (when (re-find #"tilde" (str target))
-    (println "\nlatexify:" target))
-
   (cond
    (string? target) (sanitize-latex target)
    (map? target) (into {} (for [[k v] target] [k (latexify v)]))
@@ -134,7 +131,7 @@
   (sf/add-filter! :markdown kramdown)
   (sf/add-filter! :mean-roll util/mean-roll)
   (sf/add-filter! :mod format-mod)
-  (sf/add-filter! :present? #(not (str/blank? %)))
+  (sf/add-filter! :present? #(not (empty? %)))
   (sf/add-filter! :saves-list saves-list)
   (sf/add-filter! :skills-list skills-list)
   (sf/add-filter! :speed speed)

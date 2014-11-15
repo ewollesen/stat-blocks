@@ -17,22 +17,22 @@
     <{ m.abilities.wis|latex }>~(<{ m.abilities.wis|ability-mod|latex }>) &
     <{ m.abilities.cha|latex }>~(<{ m.abilities.cha|ability-mod|latex }>) \\
   \end{abilities}
-  <% if m.saving-throws %>
+  <% if m.saving-throws|present? %>
   \attribute{Saving Throws}{<{ m.saving-throws|saves-list|latex }>}
   <% endif %>
-  <% if m.skills %>
+  <% if m.skills|present? %>
   \attribute{Skills}{<{ m.skills|skills-list|latex }>}
   <% endif %>
-  <% if m.damage-vulnerabilities %>
+  <% if m.damage-vulnerabilities|present? %>
   \attribute{Damage Vulnerabilities}{<{ m.damage-vulnerabilities|join:", "|latex }>}
   <% endif %>
-  <% if m.damage-resistances %>
+  <% if m.damage-resistances|present? %>
   \attribute{Damage Resistances}{<{ m.damage-resistances|damage-resistances-list|latex }>}
   <% endif %>
-  <% if m.damage-immunities %>
+  <% if m.damage-immunities|present? %>
   \attribute{Damage Immunities}{<{ m.damage-immunities|join:", "|latex }>}
   <% endif %>
-  <% if m.condition-immunities %>
+  <% if m.condition-immunities|present? %>
   \attribute{Condition Immunities}{<{ m.condition-immunities|join:", "|latex }>}
   <% endif %>
   \attribute{Senses}{<{ m.senses|join:", "|latex }>}
@@ -57,13 +57,13 @@
          {<% if action.damage-details %><{ action.damage-details|markdown }><% else %>nil<% endif %>}
   <% endif %>
   <% endfor %>
-  <% if m.reactions %>
+  <% if m.reactions|present? %>
   \group{Reactions} \\
   <% for reaction in m.reactions %>
   \action{<{ reaction.name|title|latex }>}{<{ reaction.text|markdown }>}
   <% endfor %>
   <% endif %>
-  <% if m.legendary-actions.actions %>
+  <% if m.legendary-actions.actions|present? %>
   \group{Legendary Actions} \\
   \addvspace{0.75\sectionpad}
   <{ m.legendary-actions.intro|latex }> \\

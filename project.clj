@@ -13,12 +13,13 @@
                  [me.raynes/fs "1.4.4"]
                  [ring/ring-core "1.3.1"]
                  [ring/ring-jetty-adapter "1.3.1"]
-                 [ring/ring-json "0.3.1"]]
-  :dev-dependencies [[ring/ring-devel "1.3.1"]]
+                 [ring/ring-json "0.3.1"]
+                 [org.clojure/math.numeric-tower "0.0.4"]]
   :main ^:skip-aot stat-blocks.core
   :plugins [[lein-ring "0.8.11"]]
   :bin {:name "stat-blocks"}
   :target-path "target/%s"
   :ring {:handler stat-blocks.http/app
          :port 3333}
-  :profiles {:uberjar {:aot :all}})
+  :profiles {:uberjar {:aot :all}
+             :dev {:dependencies [[ring/ring-devel "1.3.1"]]}})

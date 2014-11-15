@@ -1,5 +1,7 @@
 (ns stat-blocks.util
-  (:require [clojure.string :as str]))
+  (:require [clojure.string :as str]
+            [clojure.edn :as edn]
+            [clojure.math.numeric-tower :as math]))
 
 
 (def die-roll-re #"(\d+)?d(\d+)(?:\s*(\+|-)\s*(\d+))?")
@@ -7,7 +9,7 @@
 (def format-mod (partial format "%+d"))
 (def range-re #"([0-9]+)/([0-9]+)")
 (def reach-or-range-re #"([0-9]+)/([0-9]+/[0-9]+/)?")
-(def str->int (comp #(Integer. %) str/trim str))
+(def str->int edn/read-string)
 
 
 (defn extname [filename]
@@ -19,7 +21,8 @@
                (str "." ext)))
 
 (defn calc-ability-mod [score]
-  (int (/ (- score 10) 2)))
+  (when score
+    (int (math/floor (/ (- score 10) 2)))))
 
 (defn join-sentence [pieces]
   (let [head (butlast pieces)

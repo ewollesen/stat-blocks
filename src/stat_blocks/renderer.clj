@@ -21,7 +21,9 @@
 (defn my-sh [& args]
   (let [result (apply sh args)]
     (when (not= 0 (:exit result))
-      (binding [*out* *err*] (println (:err result)))
+      (println (:out result))
+      (println (:err result))
+      ;; TODO don't exit, raise
       (System/exit (:exit result)))
     result))
 
