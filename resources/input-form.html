@@ -232,35 +232,43 @@
                         <div class="form-group">
                             <fieldset>
                                 <legend>Saving Throws</legend>
-                                <label class="control-label col-xs-3">
-                                    Ability
-                                </label>
-                                <div class="col-xs-3">
-                                    <select name="monster[saving-throws][0][ability]"
-                                            class="form-control">
-                                        <option value="">Ability</options>
-                                        <option>Str</option>
-                                        <option>Dex</option>
-                                        <option>Con</option>
-                                        <option>Int</option>
-                                        <option>Wis</option>
-                                        <option>Cha</option>
-                                    </select>
+                                <div class="form-group saving-throw template">
+                                    <label class="control-label col-xs-3">
+                                        Ability
+                                    </label>
+                                    <div class="col-xs-3">
+                                        <select name="monster[saving-throws][0][ability]"
+                                                class="form-control">
+                                            <option value="">Ability</option>
+                                            <option>Str</option>
+                                            <option>Dex</option>
+                                            <option>Con</option>
+                                            <option>Int</option>
+                                            <option>Wis</option>
+                                            <option>Cha</option>
+                                        </select>
+                                    </div>
+                                    <label class="control-label col-xs-3">
+                                        Modifier
+                                    </label>
+                                    <div class="col-xs-3">
+                                        <input name="monster[saving-throws][0][modifier]"
+                                               type="number"
+                                               class="form-control"
+                                               placeholder=4
+                                               min=-30 max=30>
+                                    </div>
                                 </div>
-                                <label class="control-label col-xs-3">
-                                    Modifier
-                                </label>
-                                <div class="col-xs-3">
-                                    <input name="monster[saving-throws][0][modifier]"
-                                           type="number"
-                                           class="form-control"
-                                           placeholder=4
-                                           min=-30 max=30>
+                                <div class="form-group">
+                                    <div class="text-right col-xs-12">
+                                        <button name="add-saving-throw"
+                                                class="btn adder"
+                                                data-template="saving-throw">
+                                            Add a saving throw
+                                        </button>
+                                    </div>
                                 </div>
                             </fieldset>
-                        </div>
-                        <div class="form-group">
-                            Additional saving throws TODO
                         </div>
                         <div class="form-group">
                             <fieldset>
@@ -614,7 +622,9 @@
                             Additional legendary actions TODO
                         </div>
                         <div class="form-group">
-                            <button type="submit" class="btn btn-default">Generate</button>
+                            <input type="submit"
+                                   value="Generate"
+                                   class="btn btn-default">
                         </div>
                     </form>
                 </div>
@@ -623,5 +633,6 @@
         </div>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+        <script src="js/adder.js"></script>
     </body>
 </html>

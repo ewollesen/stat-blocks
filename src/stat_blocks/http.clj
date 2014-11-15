@@ -119,12 +119,19 @@
 (defn json? [request]
   (= "application/json" (content-type request)))
 
+(defn serve-js [path]
+  (println "serve-js" path)
+  (file-response (.getFile (io/resource (str/replace path #"^/" "")))))
+
 (defn handler [{params :params :as request}]
-  (if (= (:request-method request) :get)
-    (display-form)
-    (display-png (if (json? request)
-                   params
-                   (process-form-params params)))))
+  (clojure.pprint/pprint request)
+  (if (re-find #"^/js/" (:uri request))
+    (serve-js (:uri request))
+    (if (= (:request-method request) :get)
+      (display-form)
+      (display-png (if (json? request)
+                     params
+                     (process-form-params params))))))
 
 
 (def app
