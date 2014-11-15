@@ -9,7 +9,7 @@
 (def format-mod (partial format "%+d"))
 (def range-re #"([0-9]+)/([0-9]+)")
 (def reach-or-range-re #"([0-9]+)/([0-9]+/[0-9]+/)?")
-(def str->int edn/read-string)
+(def str->int (comp edn/read-string str))
 
 
 (defn extname [filename]

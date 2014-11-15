@@ -1,6 +1,9 @@
 (ns stat-blocks.core
   (:require [clojure.string :as str]
             [clojure.tools.cli :refer [parse-opts]]
+            [clojure.java.io :as io]
+
+            [me.raynes.fs :as fs]
 
             [stat-blocks.renderer :refer [render]]
             [stat-blocks.loader :as loader])
@@ -40,11 +43,18 @@
   (str "The following errors occurred while parsing your command:\n\n"
        (str/join \newline errors)))
 
+(defn move-to-cwd [src]
+  (fs/copy src (io/file fs/*cwd* (fs/base-name src)))
+  (fs/delete src))
+
 (defn try-render [options filenames]
   (try
-    (render options (loader/load-filenames filenames))
+    (doseq [filename (render options (loader/load-filenames filenames))]
+      (move-to-cwd filename))
     0
-    (catch Exception e 1)))
+    (catch Exception e
+      (println e)
+      1)))
 
 (defn -main [& args]
   (let [{:keys [options arguments errors summary]} (parse-opts args cli-options)]
