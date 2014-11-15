@@ -15,6 +15,11 @@
            [stat-blocks.loader :refer [load-filenames]]))
 
 
+
+(defn print-n-return [object]
+  (clojure.pprint/pprint object)
+  object)
+
 (defn wrap-disposition [name response]
   (header response "Content-Disposition" (format "inline; filename=%s" name)))
 
@@ -31,9 +36,7 @@
            (filter #(.endsWith % "-0.png"))
            first
            file-response
-           (wrap-disposition (str name ".png"))))
-    ;; (catch Exception e (response (str "Failed!" e)))
-    ))
+           (wrap-disposition (str name ".png"))))))
 
 (defn display-form []
   (response (slurp (io/resource "input-form.html"))))
@@ -104,10 +107,6 @@
       (intkeys->vec :actions)
       (intkeys->vec :reactions)
       (intkeys->vec :legendary-actions :actions)))
-
-(defn print-n-return [object]
-  (clojure.pprint/pprint object)
-  object)
 
 (defn process-form-params [params]
   (clojure.pprint/pprint params)
