@@ -26,7 +26,7 @@ var adder = function () {
 
 var adders = function () {
   $.fn.adder = adder;
-  $(".adder.btn").adder();
+  $(".adder.btn").each(adder);
 };
 
 $(document).ready(adders);
