@@ -120,7 +120,6 @@
   (= "application/json" (content-type request)))
 
 (defn serve-js [path]
-  (println "serve-js" path)
   (file-response (.getFile (io/resource (str/replace path #"^/" "")))))
 
 (defn handler [{params :params :as request}]

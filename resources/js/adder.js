@@ -1,13 +1,13 @@
 var adder = function () {
   var el = $(this);
   var templateId = ".template." + el.data("template");
-  var template = $(templateId);
+  var template = $(templateId).clone().removeClass("template");
   var renderTemplate = function (idx) {
-    var t = template.clone().removeClass("template")
+    var t = template.clone();
 
     $("[name]", t).each(function (i, el) {
       var el = $(this);
-
+      alert(idx);
       el.attr("name", el.attr("name").replace("[0]", "[" + idx + "]"));
     });
 
@@ -15,7 +15,7 @@ var adder = function () {
   };
 
   $(this).on("click", function (event) {
-    var numSaves = $(".form-group." + el.data("template")).length;
+    var numSaves = $("." + el.data("template")).length;
 
     event.preventDefault();
     el.before(renderTemplate(numSaves));

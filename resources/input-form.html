@@ -399,7 +399,7 @@
                         <div class="form-group">
                             <fieldset class="col-xs-12">
                                 <legend>Traits</legend>
-                                <div class="template trait">
+                                <fieldset class="template trait">
                                     <div class="form-group">
                                         <label class="control-label col-xs-4">
                                             Name
@@ -416,13 +416,11 @@
                                             Text
                                         </label>
                                         <div class="col-xs-8">
-                                            <input name="monster[traits][0][text]"
-                                                   type="text"
-                                                   placeholder="The monster has advantage on perception checks that rely on smell."
-                                                   class="form-control"/>
+                                            <textarea name="monster[traits][0][text]" rows=5 class="form-control">
+                                            </textarea>
                                         </div>
                                     </div>
-                                </div>
+                                </fieldset>
                                 <div class="form-group">
                                     <div class="col-xs-12">
                                         <button name="add-trait"
