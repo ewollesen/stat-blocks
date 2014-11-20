@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Stat Block</title>
+        <title>Stat Blocks</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -17,8 +17,8 @@
     <body id="basics" data-spy="scroll" data-target=".navbar-stat-blocks">
         <div class="container">
             <div class="row">
-                <div class="hidden-xs col-sm-3">
-                    <div data-spy="affix" class="text-right">
+                <div class="hidden-xs col-sm-push-9 col-sm-3">
+                    <div data-spy="affix" class="pull-right">
                         <div class="navbar-stat-blocks">
                             <ul role="tablist"
                                 class="nav nav-pills nav-stacked">
@@ -52,11 +52,14 @@
                                 <li>
                                     <form style="display: none;" class="aux">
                                         <div class="form-group">
-                                            <div class="col-md-12">
+                                            <div class="col-xs-12">
                                                 <button type="submit"
-                                                        class="btn btn-primary aux">
+                                                        class="btn btn-success aux">
                                                     Generate
                                                 </button>
+                                                <p>
+                                                    See a <a href="/sample">sample stat block</a>.
+                                                </p>
                                             </div>
                                         </div>
                                     </form>
@@ -65,11 +68,14 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xs-12 col-sm-9">
+                <div class="col-xs-12 col-sm-9 col-sm-pull-3">
                     <div class="row">
                         <h1 class="page-title col-xs-12">
                             Stat&nbsp;Blocks
                         </h1>
+                        <p class="visible-xs-block col-xs-12">
+                            See a <a href="/sample">sample stat block</a>.
+                        </p>
                     </div>
                     <form id="stat-block"
                           role="form"
@@ -80,10 +86,10 @@
                                 <legend>Basics</legend>
                                 <div class="form-group">
                                     <label for="monster-name"
-                                           class="control-label col-xs-4">
+                                           class="control-label col-xs-4 col-lg-3">
                                         Name
                                     </label>
-                                    <div class="col-xs-8">
+                                    <div class="col-xs-8 col-lg-9">
                                         <input id="monster-name"
                                                name="monster[name]"
                                                type="text"
@@ -93,10 +99,10 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="monster-size"
-                                           class="control-label col-xs-4">
+                                           class="control-label col-xs-4 col-lg-3">
                                         Size
                                     </label>
-                                    <div class="col-xs-8">
+                                    <div class="col-xs-8 col-lg-9">
                                         <select id="monster-size"
                                                 name="monster[size]"
                                                 class="form-control">
@@ -113,10 +119,10 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="monster-type"
-                                           class="control-label col-xs-4">
+                                           class="control-label col-xs-4 col-lg-3">
                                         Type
                                     </label>
-                                    <div class="col-xs-8">
+                                    <div class="col-xs-8 col-lg-9">
                                         <input id="monster-type"
                                                name="monster[type]"
                                                type="text"
@@ -126,10 +132,10 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="monster-alignment"
-                                           class="control-label col-xs-4">
+                                           class="control-label col-xs-4 col-lg-3">
                                         Alignment
                                     </label>
-                                    <div class="col-xs-8">
+                                    <div class="col-xs-8 col-lg-9">
                                         <input for="monster-alignment"
                                                name="monster[alignment]"
                                                type="text"
@@ -138,7 +144,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="monster-ac" class="control-label col-xs-4">
+                                    <label for="monster-ac" class="control-label col-xs-4 col-lg-3">
                                         <span class="visible-xs-inline hidden-sr">
                                             <abbr title="Armor Class">
                                                 AC
@@ -148,7 +154,7 @@
                                             Armor Class
                                         </span>
                                     </label>
-                                    <div class="col-xs-8">
+                                    <div class="col-xs-8 col-lg-9">
                                         <input id="monster-ac"
                                                name="monster[ac]"
                                                type="number"
@@ -159,7 +165,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="monster-ac-details"
-                                           class="control-label col-xs-4">
+                                           class="control-label col-xs-4 col-lg-3">
                                         <span class="visible-xs-inline hidden-sr">
                                             <abbr title="Armor Class">AC</abbr>
                                             Detail
@@ -168,7 +174,7 @@
                                             Armor Class Details
                                         </span>
                                     </label>
-                                    <div class="col-xs-8">
+                                    <div class="col-xs-8 col-lg-9">
                                         <input id="monster-ac-details"
                                                name="monster[ac-details]"
                                                type="text"
@@ -178,10 +184,10 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="monster-hp"
-                                           class="control-label col-xs-4">
+                                           class="control-label col-xs-4 col-lg-3">
                                         Hit Points
                                     </label>
-                                    <div class="col-xs-8">
+                                    <div class="col-xs-8 col-lg-9">
                                         <input id="monster-hp"
                                                name="monster[hp]"
                                                type="text"
@@ -191,11 +197,11 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="monster-movements-base-value"
-                                           class="control-label col-xs-4">
+                                           class="control-label col-xs-4 col-lg-3">
                                         <span class="hidden-xs">Base</span>
                                         Speed
                                     </label>
-                                    <div class="col-xs-8 alternate-movement">
+                                    <div class="col-xs-8 col-lg-9 alternate-movement">
                                         <input name="monster[movements][0][name]"
                                                type="hidden"
                                                value="base"/>
@@ -210,10 +216,10 @@
                                 <div style="display: none;"
                                      class="alternate-movement template">
                                     <div class="form-group">
-                                        <label class="control-label col-xs-4">
+                                        <label class="control-label col-xs-4 col-lg-3">
                                             Movement Name
                                         </label>
-                                        <div class="col-xs-8">
+                                        <div class="col-xs-8 col-lg-9">
                                             <input name="monster[movements][1][name]"
                                                    type="text"
                                                    class="form-control"
@@ -221,10 +227,10 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="control-label col-xs-4">
+                                        <label class="control-label col-xs-4 col-lg-3">
                                             Movement Value
                                         </label>
-                                        <div class="col-xs-8">
+                                        <div class="col-xs-8 col-lg-9">
                                             <input name="monster[movements][1][value]"
                                                    type="number"
                                                    class="form-control"
@@ -233,10 +239,10 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="control-label col-xs-4">
+                                        <label class="control-label col-xs-4 col-lg-3">
                                             Movement Details
                                         </label>
-                                        <div class="col-xs-8">
+                                        <div class="col-xs-8 col-lg-9">
                                             <input name="monster[movements][1][details]"
                                                    type="text"
                                                    class="form-control"
@@ -263,10 +269,10 @@
                                     <div class="col-xs-6">
                                         <div class="form-group">
                                             <label for="monster-abilities-str"
-                                                   class="control-label col-xs-4">
+                                                   class="control-label col-xs-4 col-lg-3">
                                                 Str
                                             </label>
-                                            <div class="col-xs-8">
+                                            <div class="col-xs-8 col-lg-9">
                                                 <input id="monster-abilities-str"
                                                        name="monster[abilities][str]"
                                                        type="number"
@@ -277,10 +283,10 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="monster-abilities-dex"
-                                                   class="control-label col-xs-4">
+                                                   class="control-label col-xs-4 col-lg-3">
                                                 Dex
                                             </label>
-                                            <div class="col-xs-8">
+                                            <div class="col-xs-8 col-lg-9">
                                                 <input id="monster-abilities-dex"
                                                        name="monster[abilities][dex]"
                                                        type="number"
@@ -291,10 +297,10 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="monster-abilities-con"
-                                                   class="control-label col-xs-4">
+                                                   class="control-label col-xs-4 col-lg-3">
                                                 Con
                                             </label>
-                                            <div class="col-xs-8">
+                                            <div class="col-xs-8 col-lg-9">
                                                 <input id="monster-abilities-con"
                                                        name="monster[abilities][con]"
                                                        type="number"
@@ -307,10 +313,10 @@
                                     <div class="col-xs-6">
                                         <div class="form-group">
                                             <label for="monster-abilities-int"
-                                                   class="control-label col-xs-4">
+                                                   class="control-label col-xs-4 col-lg-3">
                                                 Int
                                             </label>
-                                            <div class="col-xs-8">
+                                            <div class="col-xs-8 col-lg-9">
                                                 <input id="monster-abilities-int"
                                                        name="monster[abilities][int]"
                                                        type="number"
@@ -321,10 +327,10 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="monster-abilities-wis"
-                                                   class="control-label col-xs-4">
+                                                   class="control-label col-xs-4 col-lg-3">
                                                 Wis
                                             </label>
-                                            <div class="col-xs-8">
+                                            <div class="col-xs-8 col-lg-9">
                                                 <input id="monster-abilities-wis"
                                                        name="monster[abilities][wis]"
                                                        type="number"
@@ -335,10 +341,10 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="monster-abilities-cha"
-                                                   class="control-label col-xs-4">
+                                                   class="control-label col-xs-4 col-lg-3">
                                                 Cha
                                             </label>
-                                            <div class="col-xs-8">
+                                            <div class="col-xs-8 col-lg-9">
                                                 <input id="monster-abilities-cha"
                                                        name="monster[abilities][cha]"
                                                        type="number"
@@ -429,7 +435,7 @@
                             <fieldset id="misc" class="col-xs-12">
                                 <legend>Miscellaneous</legend>
                                 <div class="form-group">
-                                    <label class="control-label col-xs-4">
+                                    <label class="control-label col-xs-4 col-lg-3">
                                         <span class="visible-xs-inline hidden-sr">
                                             <abbr title="Damage Vulnerabilities">
                                                 Dmg&nbsp;Vuln
@@ -439,7 +445,7 @@
                                             Damage Vulnerabilities
                                         </span>
                                     </label>
-                                    <div class="col-xs-8">
+                                    <div class="col-xs-8 col-lg-9">
                                         <input name="monster[damage-vulnerabilities]"
                                                type="text"
                                                class="form-control"
@@ -447,7 +453,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label col-xs-4">
+                                    <label class="control-label col-xs-4 col-lg-3">
                                         <span class="visible-xs-inline hidden-sr">
                                             <abbr title="Damage Resistances">
                                                 Dmg&nbsp;Resist
@@ -457,7 +463,7 @@
                                             Damage Resistances
                                         </span>
                                     </label>
-                                    <div class="col-xs-8">
+                                    <div class="col-xs-8 col-lg-9">
                                         <input name="monster[damage-resistances]"
                                                type="text"
                                                placeholder="cold; bludgeoning, slashing, and piercing from non-magical weapons"
@@ -465,7 +471,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label col-xs-4">
+                                    <label class="control-label col-xs-4 col-lg-3">
                                         <span class="visible-xs-inline hidden-sr">
                                             <abbr title="Damage Immunities">
                                                 Dmg&nbsp;Immn
@@ -475,7 +481,7 @@
                                             Damage Immunities
                                         </span>
                                     </label>
-                                    <div class="col-xs-8">
+                                    <div class="col-xs-8 col-lg-9">
                                         <input name="monster[damage-immunities]"
                                                type="text"
                                                placeholder="fire, poison"
@@ -483,7 +489,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label col-xs-4">
+                                    <label class="control-label col-xs-4 col-lg-3">
                                         <span class="visible-xs-inline hidden-sr">
                                             <abbr title="Condition Immunities">
                                                 Cond&nbsp;Immn
@@ -493,7 +499,7 @@
                                             Condition Immunities
                                         </span>
                                     </label>
-                                    <div class="col-xs-8">
+                                    <div class="col-xs-8 col-lg-9">
                                         <input name="monster[condition-immunities]"
                                                type="text"
                                                class="form-control"
@@ -501,10 +507,10 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label col-xs-4">
+                                    <label class="control-label col-xs-4 col-lg-3">
                                         Senses
                                     </label>
-                                    <div class="col-xs-8">
+                                    <div class="col-xs-8 col-lg-9">
                                         <input name="monster[senses]"
                                                type="text"
                                                class="form-control"
@@ -512,10 +518,10 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label col-xs-4">
+                                    <label class="control-label col-xs-4 col-lg-3">
                                         Languages
                                     </label>
-                                    <div class="col-xs-8">
+                                    <div class="col-xs-8 col-lg-9">
                                         <input name="monster[languages]"
                                                type="text"
                                                placeholder="Common, any two other languages"
@@ -523,10 +529,10 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label col-xs-4">
+                                    <label class="control-label col-xs-4 col-lg-3">
                                         Challenge
                                     </label>
-                                    <div class="col-xs-8">
+                                    <div class="col-xs-8 col-lg-9">
                                         <input name="monster[challenge]"
                                                type="text"
                                                placeholder="1/2"
@@ -534,7 +540,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label col-xs-4">
+                                    <label class="control-label col-xs-4 col-lg-3">
                                         <span class="visible-xs-inline hidden-sr">
                                             <abbr title="Experience Points">
                                                 XP
@@ -544,11 +550,11 @@
                                             Experience Points
                                         </span>
                                     </label>
-                                    <div class="col-xs-8">
+                                    <div class="col-xs-8 col-lg-9">
                                         <input name="monster[xp]"
                                                type="number"
                                                placeholder=500
-                                               class="form-control col-xs-8"
+                                               class="form-control col-xs-8 col-lg-9"
                                                min=0/>
                                     </div>
                                 </div>
@@ -560,10 +566,10 @@
                                 <fieldset style="display: none;"
                                           class="template trait">
                                     <div class="form-group">
-                                        <label class="control-label col-xs-4">
+                                        <label class="control-label col-xs-4 col-lg-3">
                                             Name
                                         </label>
-                                        <div class="col-xs-8">
+                                        <div class="col-xs-8 col-lg-9">
                                             <input name="monster[traits][0][name]"
                                                    type="text"
                                                    placeholder="Keen Smell"
@@ -571,12 +577,12 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <div class="col-xs-4 control-label">
+                                        <div class="col-xs-4 col-lg-3 control-label">
                                             <label>
                                                 Text
                                             </label>
                                         </div>
-                                        <div class="col-xs-8">
+                                        <div class="col-xs-8 col-lg-9">
                                             <textarea name="monster[traits][0][text]"
                                                       rows=5
                                                       class="form-control">
@@ -608,11 +614,11 @@
                                 <legend>Actions</legend>
                                 <div class="template action">
                                     <div class="form-group">
-                                        <label class="control-label col-xs-4">
+                                        <label class="control-label col-xs-4 col-lg-3">
                                             <span class="hidden-xs">Action</span>
                                             Type
                                         </label>
-                                        <div class="col-xs-8">
+                                        <div class="col-xs-8 col-lg-9">
                                             <div class="radio-inline">
                                                 <label>
                                                     <input type="radio"
@@ -635,10 +641,10 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="control-label col-xs-4">
+                                        <label class="control-label col-xs-4 col-lg-3">
                                             Name
                                         </label>
-                                        <div class="col-xs-8">
+                                        <div class="col-xs-8 col-lg-9">
                                             <input name="monster[actions][0][name]"
                                                    type="text"
                                                    placeholder="Scimitar"
@@ -647,10 +653,10 @@
                                     </div>
                                     <div style="display: none;"
                                          class="form-group action-type text">
-                                        <label class="control-label col-xs-4">
+                                        <label class="control-label col-xs-4 col-lg-3">
                                             Text
                                         </label>
-                                        <div class="col-xs-8">
+                                        <div class="col-xs-8 col-lg-9">
                                             <textarea name="monster[actions][0][text]"
                                                       rows=5
                                                       disabled="disabled"
@@ -667,10 +673,10 @@
                                         </div>
                                     </div>
                                     <div class="form-group action-type attack">
-                                        <label class="control-label col-xs-4">
+                                        <label class="control-label col-xs-4 col-lg-3">
                                             Desc<span class="hidden-xs">ription</span>
                                         </label>
-                                        <div class="col-xs-8">
+                                        <div class="col-xs-8 col-lg-9">
                                             <input name="monster[actions][0][attack-type]"
                                                    type="text"
                                                    placeholder="Melee Weapon Attack"
@@ -678,10 +684,10 @@
                                         </div>
                                     </div>
                                     <div class="form-group action-type attack">
-                                        <label class="control-label col-xs-4">
+                                        <label class="control-label col-xs-4 col-lg-3">
                                             To Hit
                                         </label>
-                                        <div class="col-xs-8">
+                                        <div class="col-xs-8 col-lg-9">
                                             <input name="monster[actions][0][to-hit]"
                                                    type="number"
                                                    placeholder=3
@@ -690,10 +696,10 @@
                                         </div>
                                     </div>
                                     <div class="form-group action-type attack">
-                                        <label class="control-label col-xs-4">
+                                        <label class="control-label col-xs-4 col-lg-3">
                                             Reach
                                         </label>
-                                        <div class="col-xs-8">
+                                        <div class="col-xs-8 col-lg-9">
                                             <input name="monster[actions][0][reach]"
                                                    type="number"
                                                    placeholder=5
@@ -702,10 +708,10 @@
                                         </div>
                                     </div>
                                     <div class="form-group action-type attack">
-                                        <label class="control-label col-xs-4">
+                                        <label class="control-label col-xs-4 col-lg-3">
                                             Range
                                         </label>
-                                        <div class="col-xs-8">
+                                        <div class="col-xs-8 col-lg-9">
                                             <div class="form-group">
                                                 <div class="col-xs-6">
                                                     <input name="monster[actions][0][range][]"
@@ -725,10 +731,10 @@
                                         </div>
                                     </div>
                                     <div class="form-group action-type attack">
-                                        <label class="control-label col-xs-4">
+                                        <label class="control-label col-xs-4 col-lg-3">
                                             Target
                                         </label>
-                                        <div class="col-xs-8">
+                                        <div class="col-xs-8 col-lg-9">
                                             <input name="monster[actions][0][target]"
                                                    type="text"
                                                    placeholder="one creature"
@@ -736,10 +742,10 @@
                                         </div>
                                     </div>
                                     <div class="form-group action-type attack">
-                                        <label class="control-label col-xs-4">
+                                        <label class="control-label col-xs-4 col-lg-3">
                                             Hit
                                         </label>
-                                        <div class="col-xs-8">
+                                        <div class="col-xs-8 col-lg-9">
                                             <input name="monster[actions][0][hit]"
                                                    type="text"
                                                    placeholder="1d8 + 1"
@@ -747,7 +753,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group action-type attack">
-                                        <label class="control-label col-xs-4">
+                                        <label class="control-label col-xs-4 col-lg-3">
                                             <span class="visible-xs-inline hidden-sr">
                                                 <abbr title="Damage">Dmg</abbr>
                                                 Type
@@ -756,7 +762,7 @@
                                                 Damage Type
                                             </span>
                                         </label>
-                                        <div class="col-xs-8">
+                                        <div class="col-xs-8 col-lg-9">
                                             <input name="monster[actions][0][damage-type]"
                                                    type="text"
                                                    placeholder="slashing"
@@ -764,7 +770,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group action-type attack">
-                                        <label class="control-label col-xs-4">
+                                        <label class="control-label col-xs-4 col-lg-3">
                                             <span class="visible-xs-inline hidden-sr">
                                                 <abbr title="Damage">
                                                     Dmg
@@ -775,7 +781,7 @@
                                                 Damage Details
                                             </span>
                                         </label>
-                                        <div class="col-xs-8">
+                                        <div class="col-xs-8 col-lg-9">
                                             <input name="monster[actions][0][damage-details]"
                                                    type="text"
                                                    placeholder=", or 4 (1d8) bludgeoning damage with *shillelagh* or if wilded with two hands."
@@ -800,10 +806,10 @@
                                 <div style="display: none;"
                                      class="template reaction">
                                     <div class="form-group">
-                                        <label class="control-label col-xs-4">
+                                        <label class="control-label col-xs-4 col-lg-3">
                                             Name
                                         </label>
-                                        <div class="col-xs-8">
+                                        <div class="col-xs-8 col-lg-9">
                                             <input name="monster[reactions][0][name]"
                                                    type="text"
                                                    placeholder="Parry"
@@ -811,10 +817,10 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="control-label col-xs-4">
+                                        <label class="control-label col-xs-4 col-lg-3">
                                             Text
                                         </label>
-                                        <div class="col-xs-8">
+                                        <div class="col-xs-8 col-lg-9">
                                             <textarea name="monster[reactions][0][text]"
                                                       rows=5
                                                       class="form-control">
@@ -845,13 +851,13 @@
                             <fieldset id="legendary-actions" class="col-xs-12">
                                 <legend>Legendary Actions</legend>
                                 <div class="form-group">
-                                    <label class="control-label col-xs-4">
+                                    <label class="control-label col-xs-4 col-lg-3">
                                         <span class="visible-xs-inline hidden-sr">
                                             <abbr title="Introduction">Intro</abbr>
                                         </span>
                                         <span class="hidden-xs">Introduction</span>
                                     </label>
-                                    <div class="col-xs-8">
+                                    <div class="col-xs-8 col-lg-9">
                                         <input name="monster[legendary-actions][intro]"
                                                type="text"
                                                placeholder="The sample monster can take 3 legendary actions, choosing from the options below. Only one legendary action option can be used at a time and only at the end of another creature's turn. The sample monster regains spent legendary actions at the start of its turn."
@@ -861,10 +867,10 @@
                                 <div style="display: none;"
                                      class="template legendary-action">
                                     <div class="form-group">
-                                        <label class="control-label col-xs-4">
+                                        <label class="control-label col-xs-4 col-lg-3">
                                             Name
                                         </label>
-                                        <div class="col-xs-8">
+                                        <div class="col-xs-8 col-lg-9">
                                             <input name="monster[legendary-actions][actions][0][name]"
                                                    type="text"
                                                    placeholder="Teleport"
@@ -872,10 +878,10 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="control-label col-xs-4">
+                                        <label class="control-label col-xs-4 col-lg-3">
                                             Text
                                         </label>
-                                        <div class="col-xs-8">
+                                        <div class="col-xs-8 col-lg-9">
                                             <textarea name="monster[legendary-actions][actions][0][text]"
                                                       rows=5
                                                       class="form-control">
@@ -904,9 +910,12 @@
                         </div>
                         <div class="form-group">
                             <div class="col-xs-12">
-                                <input type="submit"
-                                       value="Generate"
-                                       class="btn btn-primary pull-right">
+                                <p class="pull-right">
+                                    See a <a href="/sample">sample stat block</a>.
+                                    <input type="submit"
+                                           value="Generate"
+                                           class="btn btn-success">
+                                </p>
                             </div>
                         </div>
                     </form>
@@ -931,14 +940,14 @@
                             Here's an example of how you might specify a spellcasting list:
                         </p>
                         <p>
-                            <pre><code>The sample monster is a 1st-level spellcaster. Its spellcasting ability is Wisdom (spell save DC 12, +4 to hit with spell attacks). The sample monster has the following cleric spells prepared:
+                            <pre><code>The sample monster has the following cleric spells prepared:
 
 Cantrips (at will):
 : *light*, *sacred flame*, *thaumaturgy*
 
 1st level (3 slots):
 : *bless*, *cure wounds*, *sanctuary*</code></pre>
-                        </p>
+
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

@@ -19,23 +19,23 @@
 (defn wrap-disposition [name response]
   (header response "Content-Disposition" (format "inline; filename=%s" name)))
 
-(defn display-png [params]
-  (try
-    (let [monsters (if (empty? params)
-                     (load-filenames ["resources/sample.edn"])
-                     [params])
-          name (str/replace (:name (first monsters)) #"[\W\.]+" "")
-          http-opts {:png true :output name}
-          output (render http-opts monsters)
-          filename (first (filter #(.endsWith % "-0.png") output))]
-      (->> output
-           (filter #(.endsWith % "-0.png"))
-           first
-           file-response
-           (wrap-disposition (str name ".png"))))))
+(defn display-png
+  ([] (display-png (first (load-filenames ["resources/sample.edn"]))))
+  ([params]
+     (try
+       (let [monsters [params]
+             name (str/replace (:name (first monsters)) #"[\W\.]+" "")
+             http-opts {:png true :output name}
+             output (render http-opts monsters)
+             filename (first (filter #(.endsWith % "-0.png") output))]
+         (->> output
+              (filter #(.endsWith % "-0.png"))
+              first
+              file-response
+              (wrap-disposition (str name ".png")))))))
 
 (defn display-form []
-  (response (slurp (io/resource "input-form.html"))))
+  (response (slurp (io/resource "html/index.html"))))
 
 (defn empty-vec? [vec]
   (every? empty? vec))
@@ -125,19 +125,18 @@
 (defn serve-js [path]
   (file-response (.getFile (io/resource (str/replace path #"^/" "")))))
 
-(defn serve-css [path]
-  (file-response (.getFile (io/resource (str/replace path #"^/" "")))))
+(def serve-css serve-js)
+(def serve-img serve-js)
 
 (defn handler [{params :params :as request}]
-  (if (re-find #"^/js/" (:uri request))
-    (serve-js (:uri request))
-    (if (re-find #"^/css/" (:uri request))
-      (serve-css (:uri request))
-      (if (= (:request-method request) :get)
-        (display-form)
-        (display-png (if (json? request)
-                       params
-                       (process-form-params params)))))))
+  (cond
+   (re-find #"^/js/" (:uri request)) (serve-js (:uri request))
+   (re-find #"^/css/" (:uri request)) (serve-css (:uri request))
+   (re-find #"^/sample" (:uri request)) (serve-img "/img/samplemonster.png")
+   (= :post (:request-method request)) (display-png (if (json? request)
+                                                      params
+                                                      (process-form-params params)))
+   :else (display-form)))
 
 
 (def app
