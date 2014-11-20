@@ -16,10 +16,6 @@
 
 
 
-(defn print-n-return [object]
-  (clojure.pprint/pprint object)
-  object)
-
 (defn wrap-disposition [name response]
   (header response "Content-Disposition" (format "inline; filename=%s" name)))
 
@@ -60,14 +56,17 @@
   (update-in params ks stripper))
 
 (defn strip-empty-vecs [params & ks]
-  (let [f (fn [old]
-            (clojure.pprint/pprint old)
-            (print-n-return (vec (remove empty? old))))]
+  (let [f (fn [old] (vec (remove empty? old)))]
     (update-in params ks f)))
+
+(defn strip-empty-action-ranges [params]
+  (reduce #(strip-empty-vecs %1 :actions %2 :range)
+          params
+          (range (count (:actions params)))))
 
 (defn strip-fields [params]
   (-> params
-      (strip-empty-vecs :actions 0 :range)
+      (strip-empty-action-ranges)
       (strip-empty-vecs :damage-vulnerabilities)
       (strip-empty-vecs :damage-resistances)
       (strip-empty-vecs :damage-immunities)
@@ -114,13 +113,11 @@
       (intkeys->vec :legendary-actions :actions)))
 
 (defn process-form-params [params]
-  (clojure.pprint/pprint params)
-  (print-n-return (-> params
-                      :monster
-                      construct-vecs
-                      print-n-return
-                      split-fields
-                      strip-fields)))
+  (clojure.pprint/pprint(-> params
+                            :monster
+                            construct-vecs
+                            split-fields
+                            strip-fields)))
 
 (defn json? [request]
   (= "application/json" (content-type request)))

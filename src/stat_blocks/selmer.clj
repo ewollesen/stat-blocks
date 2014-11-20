@@ -81,13 +81,7 @@
             (util/str->int (:value movement))
             details)))
 
-
-(defn print-n-return [object]
-  (clojure.pprint/pprint object)
-  object)
-
 (defn speed [movements]
-  (println "movements" movements)
   (let [splitmap (group-by #(= (:name %) "base") movements)
         base (first (get splitmap true))
         alts (get splitmap false)
