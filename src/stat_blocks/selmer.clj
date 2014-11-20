@@ -76,24 +76,28 @@
 
 (defn alt-speed [movement]
   (let [details (if (:details movement) (str " " (:details movement)) "")]
-    (format "%s %d ft.%s" (:name movement) (:value movement) details)))
+    (format "%s %d ft.%s"
+            (:name movement)
+            (util/str->int (:value movement))
+            details)))
+
+
+(defn print-n-return [object]
+  (clojure.pprint/pprint object)
+  object)
 
 (defn speed [movements]
-  (let [[bases alts] (partition-by #(= (:name %) "base") movements)
-        base (first bases)
+  (println "movements" movements)
+  (let [splitmap (group-by #(= (:name %) "base") movements)
+        base (first (get splitmap true))
+        alts (get splitmap false)
         base-str (str (:value base) " ft.")]
     (str/join ", " (into [base-str] (map #(alt-speed %) alts)))))
 
 (defn fix-emph [text]
   (str/replace text
                #"\\emph\{([^}]*)\}"
-               "{\\\\fontshape{it}\\\\selectfont $1}")
-  ;; (str/replace (str/trim markdown) "\\emph{" "{\\em ")
-  ;; (str/replace (str/trim markdown) "\\emph{" "\\textit{")
-  ;; (str/replace markdown #"\\emph\{([^}]*)\}" "{\\\\em $1}")
-  ;; (str/trim markdown)
-  ;; text
-  )
+               "{\\\\fontshape{it}\\\\selectfont $1}"))
 
 (defn kramdown [text]
   ;; kramdown renders *text* as \emph{text}, but in some places, this output

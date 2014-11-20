@@ -1,0 +1,11 @@
+body {
+  position: relative;
+}
+
+.affix-bottom, .affix-top, .affix {
+  width: 180px;
+}
+
+.affix-top, .affix {
+  padding-top: 70px;
+}

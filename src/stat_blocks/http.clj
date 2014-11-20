@@ -73,10 +73,11 @@
       (strip-empty-vecs :actions 0 :range)
       (strip-empty-maps :actions)
       (strip-empty-maps :reactions)
+      (strip-empty-maps :movements)
       (strip-empty-maps :legendary-actions :actions)))
 
 (defn splitter [old]
-  (filterv #(not (empty? %)) (str/split (str old) #"\s*(,|and|or|;)\s*")))
+  [old])
 
 (defn split-field [params & ks]
   (update-in params ks splitter))
@@ -113,6 +114,7 @@
   (print-n-return (-> params
                       :monster
                       construct-vecs
+                      print-n-return
                       split-fields
                       strip-fields)))
 
@@ -122,15 +124,19 @@
 (defn serve-js [path]
   (file-response (.getFile (io/resource (str/replace path #"^/" "")))))
 
+(defn serve-css [path]
+  (file-response (.getFile (io/resource (str/replace path #"^/" "")))))
+
 (defn handler [{params :params :as request}]
-  (clojure.pprint/pprint request)
   (if (re-find #"^/js/" (:uri request))
     (serve-js (:uri request))
-    (if (= (:request-method request) :get)
-      (display-form)
-      (display-png (if (json? request)
-                     params
-                     (process-form-params params))))))
+    (if (re-find #"^/css/" (:uri request))
+      (serve-css (:uri request))
+      (if (= (:request-method request) :get)
+        (display-form)
+        (display-png (if (json? request)
+                       params
+                       (process-form-params params)))))))
 
 
 (def app
