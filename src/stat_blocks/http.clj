@@ -23,6 +23,7 @@
   ([] (display-png (first (load-filenames ["resources/sample.edn"]))))
   ([params]
      (try
+       (println "params" params)
        (let [monsters [params]
              name (str/replace (:name (first monsters)) #"[\W\.]+" "")
              http-opts {:png true :output name}
@@ -113,26 +114,22 @@
       (intkeys->vec :legendary-actions :actions)))
 
 (defn process-form-params [params]
-  (clojure.pprint/pprint(-> params
-                            :monster
-                            construct-vecs
-                            split-fields
-                            strip-fields)))
+  (-> params
+      :monster
+      construct-vecs
+      split-fields
+      strip-fields))
 
 (defn json? [request]
   (= "application/json" (content-type request)))
 
-(defn serve-js [path]
+(defn serve-static [path]
   (file-response (.getFile (io/resource (str/replace path #"^/" "")))))
-
-(def serve-css serve-js)
-(def serve-img serve-js)
 
 (defn handler [{params :params :as request}]
   (cond
-   (re-find #"^/js/" (:uri request)) (serve-js (:uri request))
-   (re-find #"^/css/" (:uri request)) (serve-css (:uri request))
-   (re-find #"^/sample" (:uri request)) (serve-img "/img/samplemonster.png")
+   (re-find #"^/(js|css)/" (:uri request)) (serve-static (:uri request))
+   (re-find #"^/sample" (:uri request)) (serve-static "/img/samplemonster.png")
    (= :post (:request-method request)) (display-png (if (json? request)
                                                       params
                                                       (process-form-params params)))
