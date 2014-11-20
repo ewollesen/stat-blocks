@@ -67,10 +67,14 @@
 
 (defn strip-fields [params]
   (-> params
+      (strip-empty-vecs :actions 0 :range)
+      (strip-empty-vecs :damage-vulnerabilities)
+      (strip-empty-vecs :damage-resistances)
+      (strip-empty-vecs :damage-immunities)
+      (strip-empty-vecs :condition-immunities)
       (strip-empty-maps :saving-throws)
       (strip-empty-maps :skills)
       (strip-empty-maps :traits)
-      (strip-empty-vecs :actions 0 :range)
       (strip-empty-maps :actions)
       (strip-empty-maps :reactions)
       (strip-empty-maps :movements)
