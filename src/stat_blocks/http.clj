@@ -1,12 +1,13 @@
 (ns stat-blocks.http
   (use [ring.util.response :only [header response file-response]]
        [ring.middleware.json :only [wrap-json-params]]
+       ;;[ring.middleware.stacktrace :only [wrap-stacktrace]]
        )
   (require [clojure.string :as str]
            [clojure.java.io :as io]
            [ring.util.request :refer [content-type urlencoded-form?]]
            [ring.middleware.keyword-params :refer [wrap-keyword-params]]
-           [ring.middleware.stacktrace :refer [wrap-stacktrace]]
+
            [ring.middleware.params :refer [wrap-params]]
            [ring.middleware.nested-params :refer [wrap-nested-params]]
            [me.raynes.fs :as fs]
@@ -138,7 +139,7 @@
 
 (def app
   (-> handler
-      wrap-stacktrace
+      ;;wrap-stacktrace
       wrap-keyword-params
       wrap-nested-params
       wrap-params
