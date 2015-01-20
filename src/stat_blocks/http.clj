@@ -1,13 +1,12 @@
 (ns stat-blocks.http
   (use [ring.util.response :only [header response file-response]]
        [ring.middleware.json :only [wrap-json-params]]
-       ;;[ring.middleware.stacktrace :only [wrap-stacktrace]]
-       )
+       [ring.adapter.jetty :only [run-jetty]])
   (require [clojure.string :as str]
            [clojure.java.io :as io]
            [ring.util.request :refer [content-type urlencoded-form?]]
+           [ring.middleware.resource :refer [wrap-resource]]
            [ring.middleware.keyword-params :refer [wrap-keyword-params]]
-
            [ring.middleware.params :refer [wrap-params]]
            [ring.middleware.nested-params :refer [wrap-nested-params]]
            [me.raynes.fs :as fs]
@@ -24,7 +23,6 @@
   ([] (display-png (first (load-filenames ["resources/sample.edn"]))))
   ([params]
      (try
-       (println "params" params)
        (let [monsters [params]
              name (str/replace (:name (first monsters)) #"[\W\.]+" "")
              http-opts {:png true :output name}
@@ -37,7 +35,7 @@
               (wrap-disposition (str name ".png")))))))
 
 (defn display-form []
-  (response (slurp (io/resource "html/index.html"))))
+  (response (slurp (io/resource "public/html/index.html"))))
 
 (defn empty-vec? [vec]
   (every? empty? vec))
@@ -129,8 +127,6 @@
 
 (defn handler [{params :params :as request}]
   (cond
-   (re-find #"^/(js|css)/" (:uri request)) (serve-static (:uri request))
-   (re-find #"^/sample" (:uri request)) (serve-static "/img/samplemonster.png")
    (= :post (:request-method request)) (display-png (if (json? request)
                                                       params
                                                       (process-form-params params)))
@@ -139,8 +135,14 @@
 
 (def app
   (-> handler
-      ;;wrap-stacktrace
+      (wrap-resource "public")
       wrap-keyword-params
       wrap-nested-params
       wrap-params
       wrap-json-params))
+
+(defn serve-forever []
+  (while true
+    (try
+      (run-jetty app {:port 3334})
+      (catch Exception e))))

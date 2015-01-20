@@ -5,6 +5,7 @@
 
             [me.raynes.fs :as fs]
 
+            [stat-blocks.http :as http]
             [stat-blocks.renderer :refer [render]]
             [stat-blocks.loader :as loader])
   (:gen-class))
@@ -19,6 +20,7 @@
     :default false]
    [nil "--pdf" "Generates PDF output, one file for all stat-blocks"
     :default true]
+   ["-s" "--serve" "Run Jetty server" :default false]
    ["-h" "--help"]])
 (def error-no-files "You must provide at least one monster datafile.")
 
@@ -56,10 +58,14 @@
       (println e)
       1)))
 
+(defn serve-forever []
+  )
+
 (defn -main [& args]
   (let [{:keys [options arguments errors summary]} (parse-opts args cli-options)]
     (cond
      (:help options) (exit 0 (usage summary))
+     (:serve options) (exit 0 (http/serve-forever))
      (empty? arguments) (exit 1 (error-msg [error-no-files]))
      errors (exit 1 (error-msg errors)))
 
