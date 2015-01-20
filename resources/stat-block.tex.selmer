@@ -69,14 +69,6 @@
   \wedgerule
 }
 
-\newenvironment{actiontext}{
-  \leftskip 0ex
-  \parindent 0ex
-}{
-  \leftskip 0ex
-  \parindent 0ex
-}
-
 \newcommand{\attribute}[2]{
   \begin{hangparas}{2ex}{1}
     \textbf{#1} #2
