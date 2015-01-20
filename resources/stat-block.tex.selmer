@@ -85,7 +85,10 @@
 
 \newcommand{\action}[2]{
   \addvspace{0.75\sectionpad}
-  \textbf{\textit{#1.}} #2
+  \textbf{\textit{#1.}}
+  \setlength{\parindent}{\origparindent}
+  #2
+  \setlength{\parindent}{0in}
 }
 
 \newcommand{\attack}[8]{
