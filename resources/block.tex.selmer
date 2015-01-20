@@ -24,16 +24,16 @@
   \attribute{Skills}{<{ m.skills|skills-list|latex }>}
   <% endif %>
   <% if m.damage-vulnerabilities|present? %>
-  \attribute{Damage Vulnerabilities}{<{ m.damage-vulnerabilities|join:", "|latex }>}
+  \attribute{Damage Vulnerabilities}{<{ m.damage-vulnerabilities|damage-resistances-list|latex }>}
   <% endif %>
   <% if m.damage-resistances|present? %>
   \attribute{Damage Resistances}{<{ m.damage-resistances|damage-resistances-list|latex }>}
   <% endif %>
   <% if m.damage-immunities|present? %>
-  \attribute{Damage Immunities}{<{ m.damage-immunities|join:", "|latex }>}
+  \attribute{Damage Immunities}{<{ m.damage-immunities|damage-resistances-list|latex }>}
   <% endif %>
   <% if m.condition-immunities|present? %>
-  \attribute{Condition Immunities}{<{ m.condition-immunities|join:", "|latex }>}
+  \attribute{Condition Immunities}{<{ m.condition-immunities|damage-resistances-list|latex }>}
   <% endif %>
   \attribute{Senses}{<{ m.senses|join:", "|latex }>}
   \attribute{Languages}{<{ m.languages|list-or:"--"|latex }>}

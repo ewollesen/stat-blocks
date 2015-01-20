@@ -61,7 +61,10 @@
                              (:details resistance))))
 
 (defn damage-resistances-list [resistances]
-  (str/join "; " (map complex-list resistances)))
+  (let [strings (filter string? resistances)
+        maps (filter map? resistances)
+        basic (str/join, ", " strings)]
+    (str/join "; " (map complex-list (flatten [basic maps])))))
 
 (defn skills-list [skills]
   (str/join ", " (map (simple-list :name :modifier) skills)))
