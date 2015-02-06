@@ -3,8 +3,8 @@
 <% block stats %>
 <% for m in monsters %>
 \begin{statblock}
-  \textsc{\LARGE\rmfamily\selectfont <{ m.name|title|latex }>} \\
-  \textit{\small <{ m.size|capitalize|latex }> <{ m.type|latex }>, <{ m.alignment|latex }>} \\
+  \monstername{<{ m.name|title|latex }>}
+  \monstersubtext{<{ m.size|capitalize|latex }>}{<{ m.type|latex }>}{<{ m.alignment|latex }>}
   \wedgerule
   \attribute{Armor Class}{<{ m.ac|latex }><% if m.ac-details %> (<{ m.ac-details|markdown }>)<% endif %>}
   \attribute{Hit Points}{<{ m.hp|mean-roll|latex }> (<{ m.hp|latex }>)}

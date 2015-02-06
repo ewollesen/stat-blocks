@@ -39,7 +39,7 @@
     (spit tex-file
           (selmer/render latex-template
                          (assoc opts :monsters monsters)))
-    (my-sh "pdflatex"
+    (my-sh "xelatex"
            "-interaction=nonstopmode"
            (fs/base-name tex-file)
            :dir work-dir)

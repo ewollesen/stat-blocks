@@ -2,10 +2,12 @@
 %% <% safe %>
 <% if png? %>
 \documentclass[multi=true, preview=true, convert, border=0.125in,
-  letterpaper, 10pt, twocolumn]{standalone}
+  letterpaper, 9pt, twocolumn]{standalone}
 <% else %>
-\documentclass[letterpaper, 10pt, twocolumn]{article}
+\documentclass[letterpaper, 9pt, twocolumn]{article}
 <% endif %>
+\usepackage{fontspec}
+\usepackage{extsizes}
 \usepackage{enumitem}
 \usepackage[top=0.75in, right=0.6875in, bottom=0.75in, left=0.6875in]{geometry}
 \usepackage{hanging}
@@ -14,16 +16,21 @@
 \usepackage{tikz}
 \usepackage{xstring}
 
-\usepackage{libertineRoman}
-\usepackage{biolinum}
-
+\setmainfont{Bookmania-Regular}
+\setsansfont[
+  Scale=MatchUppercase,
+  BoldFont={ScalaSans-BoldLF},
+  BoldItalicFont={ScalaSans-BoldLFItalic},
+  ItalicFont={ScalaSans-RegularLFItalic},
+  SmallCapsFont={ScalaSans-RegularLFSC},
+]{ScalaSans-RegularLF}
+\newfontfamily\headingfont[Scale=1.05]{MrsEavesSmallCaps-Regular}
 \setlist[description]{
   font=\normalfont,
   noitemsep,
   labelsep=0.5ex,
   leftmargin=2ex
 }
-\renewcommand\familydefault{\sfdefault}
 \frenchspacing
 \newlength\origparindent
 \newlength\abilitiespad
@@ -47,9 +54,10 @@
   \setlength{\origparindent}{\parindent}
   \setlength{\parindent}{0pt}
   \begin{figure}
-  \begin{flushleft}
+    \begin{flushleft}
+      \sffamily
 }{
-  \end{flushleft}
+    \end{flushleft}
   \end{figure}
   \setlength{\parindent}{\origparindent}
 }
@@ -60,14 +68,18 @@
   \wedgerule
   \addvspace{\abilitiespad}
   \begin{tabu} to 0.95\linewidth {XXXXXX}
-    \rowfont[c]\bfseries
-    STR & DEX & CON & INT & WIS & CHA \\
-    \rowfont[c]\normalfont
+    \rowfont[c]{\bfseries} STR & DEX & CON & INT & WIS & CHA \\
+    \rowfont[c]{\textit}
 }{
   \end {tabu} \\
   \addvspace{\abilitiespad}
   \wedgerule
 }
+
+\newenvironment{actiontext}{
+  \leftskip 0ex
+  \parindent 0ex
+}{}
 
 \newcommand{\attribute}[2]{
   \begin{hangparas}{2ex}{1}
@@ -77,10 +89,7 @@
 
 \newcommand{\action}[2]{
   \addvspace{0.75\sectionpad}
-  \textbf{\textit{#1.}}
-  \setlength{\parindent}{\origparindent}
-  #2
-  \setlength{\parindent}{0in}
+  \textbf{\textit{#1.}} {#2} \\
 }
 
 \newcommand{\attack}[8]{
@@ -93,10 +102,10 @@
 
 \newcommand{\group}[1]{
   \addvspace{\sectionpad}
-  \textsc{\textsf{\Large #1}} \\
+  {\textsc{\LARGE #1}} \\
   \vspace{-1\sectionpad}
   \sectionrule
-  \vspace{-2\sectionpad}
+  \vspace{-2\sectionpad} \\
 }
 
 \newcommand{\sectionrule}{
@@ -110,6 +119,14 @@
     \fill[rules]
     (0,0) -- (1\linewidth,0.0575) -- (0,0.115) -- cycle;
   \end{tikzpicture} \\
+}
+
+\newcommand{\monstername}[1]{
+  {\Huge\headingfont #1} \\
+}
+
+\newcommand{\monstersubtext}[3]{
+  {\textit{#1 #2, #3}} \\
 }
 
 \begin{document}
